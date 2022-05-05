@@ -1,6 +1,6 @@
 <div class="add-lore">
-  <h1>Add a new lore</h1>
-  <button mat-mini-fab (click)="openDialog()">
+  <h1 typography>Add a new lore</h1>
+  <button mat-icon-button color="primary" (click)="openDialog()">
     <mat-icon>add</mat-icon>
   </button>
 </div>
@@ -9,6 +9,9 @@
     <ng-container *ngIf="loreCollection | async as loreData">
       <mat-card *ngFor="let lore of loreData" class="lore-card">
         <mat-card-title>{{ lore.title }}</mat-card-title>
+        <mat-card-subtitle
+          >Created at: {{ lore.createdAt | date: "short" }}</mat-card-subtitle
+        >
         <mat-card-actions>
           <button mat-button color="primary">
             <mat-icon>edit</mat-icon>

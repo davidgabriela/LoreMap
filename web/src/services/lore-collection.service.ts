@@ -24,7 +24,6 @@ export class LoreCollectionService {
   }
 
   removeLore(id: string): Observable<any> {
-    console.log('Removing lore...');
     return this.http.delete(this.loresUrl + `/${id}`);
   }
 }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { DialogBodyComponent } from 'src/app/dialog-body/dialog-body.component';
 import { LoreCollectionService } from 'src/services/lore-collection.service';
+import { DialogBodyComponent } from '../dialog-body/dialog-body.component';
 import { Lore } from './Lore';
 
 @Component({
@@ -31,11 +31,12 @@ export class LoreCollectionComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.name = result;
-      const lore = {
-        title: this.name,
-      };
-      if (result.length) this.addLore(lore);
+      if (result) {
+        const lore = {
+          title: result,
+        };
+        this.addLore(lore);
+      }
     });
   }
 

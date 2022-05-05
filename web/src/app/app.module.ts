@@ -18,10 +18,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { DialogBodyComponent } from './components/dialog-body/dialog-body.component';
 import { LoreCollectionComponent } from './components/lore-collection/lore-collection.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { DialogBodyComponent } from './dialog-body/dialog-body.component';
 
 @NgModule({
   declarations: [
