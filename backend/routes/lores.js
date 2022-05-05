@@ -13,6 +13,10 @@ const router = express.Router();
 
 router.route("/").get(getLores).post(protect, createLore);
 
-router.route("/:id").get(getLore).put(protect, updateLore).delete(deleteLore);
+router
+    .route("/:id")
+    .get(getLore)
+    .put(protect, updateLore)
+    .delete(protect, deleteLore);
 
 module.exports = router;

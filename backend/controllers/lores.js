@@ -6,7 +6,9 @@ const asyncHandler = require("../middleware/async");
 // @route   GET /api/v1/lores
 // @access  Public
 exports.getLores = asyncHandler(async (req, res, next) => {
-    res.status(200).json(res.advancedResults);
+    const lores = await Lore.find();
+
+    res.status(200).json({ success: true, data: lores });
 });
 
 // @desc    Get a single lore
@@ -56,7 +58,7 @@ exports.updateLore = asyncHandler(async (req, res, next) => {
     }
 
     // Check ownership
-    if (lore.owner.toString() !== req.user.id && req.user.role !== "admin") {
+    if (lore.owner.toString() !== req.user.id) {
         return next(
             new ErrorResponse(
                 `User ${req.params.id} not authorized to update lore`,
@@ -65,23 +67,10 @@ exports.updateLore = asyncHandler(async (req, res, next) => {
         );
     }
 
-    if (req.body.members == null) {
-        lore = await Lore.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true,
-            useFindAndModify: false,
-        });
-    } else {
-        lore = await Lore.findByIdAndUpdate(
-            req.params.id,
-            { $addToSet: { members: req.body.members } },
-            {
-                new: true,
-                runValidators: true,
-                useFindAndModify: false,
-            }
-        );
-    }
+    lore = await Lore.findOneAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true,
+    });
 
     res.status(200).json({ success: true, data: lore });
 });
@@ -90,7 +79,7 @@ exports.updateLore = asyncHandler(async (req, res, next) => {
 // @route   DELETE /api/v1/lores/:id
 // @access  Private
 exports.deleteLore = asyncHandler(async (req, res, next) => {
-    const lore = await Lore.findByIdAndDelete(req.params.id);
+    const lore = await Lore.findById(req.params.id);
 
     if (!lore) {
         return next(
@@ -99,7 +88,7 @@ exports.deleteLore = asyncHandler(async (req, res, next) => {
     }
 
     // Check ownership
-    if (lore.owner.toString() !== req.user.id && req.user.role !== "admin") {
+    if (lore.owner.toString() !== req.user.id) {
         return next(
             new ErrorResponse(
                 `User ${req.params.id} not authorized to delete lore`,
@@ -107,6 +96,8 @@ exports.deleteLore = asyncHandler(async (req, res, next) => {
             )
         );
     }
+
+    lore.remove();
 
     res.status(200).json({ success: true, data: {} });
 });
