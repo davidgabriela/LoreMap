@@ -1,4 +1,6 @@
 const express = require("express");
+const { protect, authorize } = require("../middleware/auth");
+
 const {
     getLores,
     getLore,
@@ -9,7 +11,7 @@ const {
 
 const router = express.Router();
 
-router.route("/").get(getLores).post(createLore);
+router.route("/").get(getLores).post(protect, createLore);
 
 router.route("/:id").get(getLore).put(updateLore).delete(deleteLore);
 

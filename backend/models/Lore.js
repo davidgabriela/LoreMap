@@ -11,6 +11,11 @@ const LoreSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    owner: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+        required: true,
+    },
 });
 
 module.exports = mongoose.model("Lore", LoreSchema);

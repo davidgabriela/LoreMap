@@ -19,16 +19,16 @@ exports.getLores = async (req, res, next) => {
     }
 };
 
-// @desc    Get a single lores
+// @desc    Get a single lore
 // @route   GET /lore-collection/:id
 // @access  Public
 exports.getLore = async (req, res, next) => {
     try {
-        const listing = await Lore.findById(req.params.id);
+        const lore = await Lore.findById(req.params.id);
 
         res.status(200).json({
             success: true,
-            data: listing,
+            data: lore,
         });
     } catch (err) {
         res.status(400).json({
@@ -41,10 +41,13 @@ exports.getLore = async (req, res, next) => {
 // @route   POST /lore-collection
 // @access  Private
 exports.createLore = async (req, res, next) => {
-    const listing = await Lore.create(req.body);
+    // Add user to req.body
+    req.body.owner = req.user.id;
+
+    const lore = await Lore.create(req.body);
     res.status(201).json({
         success: true,
-        data: listing,
+        data: lore,
     });
 };
 
@@ -53,18 +56,31 @@ exports.createLore = async (req, res, next) => {
 // @access  Private
 exports.updateLore = async (req, res, next) => {
     try {
-        const listing = await Lore.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true,
-        });
-        if (!listing) {
+        let lore = await Lore.findById(req.params.id);
+        if (!lore) {
             res.status(400).json({
                 success: false,
             });
         }
+
+        // Check ownership
+        if (lore.owner.toString() !== req.user.id) {
+            return next(
+                new ErrorResponse(
+                    `User ${req.params.id} not authorized to update lore collection`,
+                    401
+                )
+            );
+        }
+
+        lore = await Lore.findOneAndUpdate(req.params.id, req.body, {
+            new: true,
+            runValidators: true,
+        });
+
         res.status(200).json({
             success: true,
-            data: listing,
+            data: lore,
         });
     } catch (err) {
         res.status(400).json({
@@ -73,13 +89,13 @@ exports.updateLore = async (req, res, next) => {
     }
 };
 
-// @desc    Delete a listing
+// @desc    Delete a lore
 // @route   DELETE /lore-collection/:id
 // @access  Private
 exports.deleteLore = async (req, res, next) => {
     try {
-        const listing = await Lore.findByIdAndDelete(req.params.id);
-        if (!listing) {
+        const lore = await Lore.findByIdAndDelete(req.params.id);
+        if (!lore) {
             res.status(400).json({
                 success: false,
             });
