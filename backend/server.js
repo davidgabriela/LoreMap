@@ -60,7 +60,7 @@ app.use(hpp());
 app.use(cors());
 
 // Mount routers
-app.use("/lores", lores);
+app.use("/api/v1/lore-collection", lores);
 app.use("/api/v1/workspaces", workspaces);
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/user", user);

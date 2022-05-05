@@ -1,4 +1,4 @@
 export interface Lore {
-  id: number;
+  _id?: string;
   title: string;
 }

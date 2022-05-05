@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 import { DialogBodyComponent } from 'src/app/dialog-body/dialog-body.component';
+import { LoreCollectionService } from 'src/services/lore-collection.service';
 import { Lore } from './Lore';
-import { LORES } from './mock-lores';
 
 @Component({
   selector: 'app-lore-collection',
@@ -10,13 +11,18 @@ import { LORES } from './mock-lores';
   styleUrls: ['./lore-collection.component.scss'],
 })
 export class LoreCollectionComponent {
-  loreCollection: Lore[] = LORES;
+  loreCollection: Observable<Lore[]> = new Observable();
   name: string = '';
   loresCount: number = 17;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog,
+    private loreCollectionService: LoreCollectionService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getLores();
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogBodyComponent, {
@@ -26,18 +32,27 @@ export class LoreCollectionComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       this.name = result;
-      if (result.length) this.addLore();
+      const lore = {
+        title: this.name,
+      };
+      if (result.length) this.addLore(lore);
     });
   }
 
-  addLore(): void {
-    const newLore = { id: ++this.loresCount, title: this.name };
-    console.log(newLore);
-    this.loreCollection.push(newLore);
+  getLores(): void {
+    this.loreCollection = this.loreCollectionService.getLores();
   }
 
-  removeLore(lore: Lore): void {
-    const index = this.loreCollection.indexOf(lore);
-    if (index > -1) this.loreCollection.splice(index, 1);
+  addLore(lore: Lore): void {
+    this.loreCollectionService.addLore(lore).subscribe((response) => {
+      this.getLores();
+    });
+  }
+
+  removeLore(id: string | undefined): void {
+    if (id)
+      this.loreCollectionService.removeLore(id).subscribe((lore) => {
+        this.getLores();
+      });
   }
 }

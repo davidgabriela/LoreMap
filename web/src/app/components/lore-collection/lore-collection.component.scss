@@ -1,3 +1,11 @@
+.add-lore {
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
 .card-container {
   margin: 20px;
   display: flex;
@@ -7,14 +15,5 @@
 }
 
 .lore-card {
-  width: 65vw;
-}
-
-.add-lore {
-  height: 150px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
+  width: 60vw;
 }

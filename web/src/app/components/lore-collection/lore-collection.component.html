@@ -6,18 +6,20 @@
 </div>
 <div>
   <div class="card-container">
-    <mat-card *ngFor="let lore of loreCollection" class="lore-card">
-      <mat-card-title>{{ lore.title }}</mat-card-title>
-      <mat-card-actions>
-        <button mat-button color="primary">
-          <mat-icon>edit</mat-icon>
-          WRITE
-        </button>
-        <button mat-button color="primary" (click)="removeLore(lore)">
-          <mat-icon>delete</mat-icon>
-          DELETE
-        </button>
-      </mat-card-actions>
-    </mat-card>
+    <ng-container *ngIf="loreCollection | async as loreData">
+      <mat-card *ngFor="let lore of loreData" class="lore-card">
+        <mat-card-title>{{ lore.title }}</mat-card-title>
+        <mat-card-actions>
+          <button mat-button color="primary">
+            <mat-icon>edit</mat-icon>
+            WRITE
+          </button>
+          <button mat-button color="primary" (click)="removeLore(lore._id)">
+            <mat-icon>delete</mat-icon>
+            DELETE
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </ng-container>
   </div>
 </div>
