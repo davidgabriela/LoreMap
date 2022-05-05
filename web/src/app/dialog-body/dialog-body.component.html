@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Enter a title for your new lore</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Enter title</mat-label>
+    <input matInput [(ngModel)]="data.name" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions align="start">
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data.name" cdkFocusInitial>
+    Add to Collection
+  </button>
+</div>

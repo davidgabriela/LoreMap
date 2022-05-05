@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const geocoder = require("../utils/geocoder");
 
 const LoreSchema = new mongoose.Schema({
     title: {
