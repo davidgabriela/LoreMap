@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { LoreCollectionService } from 'src/services/lore-collection.service';
+import { LoreCollectionService } from 'src/app/services/lore-collection/lore-collection.service';
 import { DialogBodyComponent } from '../dialog-body/dialog-body.component';
 import { Lore } from './Lore';
 

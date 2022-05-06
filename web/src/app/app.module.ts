@@ -1,5 +1,5 @@
 import { LayoutModule } from '@angular/cdk/layout';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,10 +18,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LoginComponent } from './components/auth/login/login.component';
 import { DialogBodyComponent } from './components/dialog-body/dialog-body.component';
 import { LoreCollectionComponent } from './components/lore-collection/lore-collection.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { AuthInterceptor } from './services/auth/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     NavigationComponent,
     DialogBodyComponent,
     LoreCollectionComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,9 @@ import { ProfileComponent } from './components/profile/profile.component';
     MatDialogModule,
     MatInputModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
