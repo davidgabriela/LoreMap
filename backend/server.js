@@ -8,7 +8,7 @@ const xss = require("xss-clean");
 const rateLimit = require("express-rate-limit");
 const hpp = require("hpp");
 const cors = require("cors");
-const coockieParser = require("cookie-parser");
+const cookieParser = require("cookie-parser");
 const errorHandler = require("./middleware/error");
 const connectDB = require("./config/db");
 
@@ -30,7 +30,7 @@ const app = express();
 app.use(express.json());
 
 // Cookie Parser
-app.use(coockieParser());
+app.use(cookieParser());
 
 // Dev logging middleware
 if (process.env.NODE_ENV === "development") {
