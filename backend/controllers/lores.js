@@ -3,16 +3,16 @@ const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middleware/async");
 
 // @desc    Get all lores
-// @route   GET /api/v1/lores
+// @route   GET /api/v1/lore-collection
 // @access  Public
 exports.getLores = asyncHandler(async (req, res, next) => {
     const lores = await Lore.find();
 
-    res.status(200).json({ success: true, data: lores });
+    res.status(200).json(res.advancedResults);
 });
 
 // @desc    Get a single lore
-// @route   GET /api/v1/lores/:id
+// @route   GET /api/v1/lore-collection/:id
 // @access  Public
 exports.getLore = asyncHandler(async (req, res, next) => {
     const lore = await Lore.findById(req.params.id);
@@ -29,7 +29,7 @@ exports.getLore = asyncHandler(async (req, res, next) => {
     });
 });
 // @desc    Create new lore
-// @route   POST /api/v1/lores
+// @route   POST /api/v1/lore-collection
 // @access  Private
 exports.createLore = asyncHandler(async (req, res, next) => {
     // Add owner
@@ -46,7 +46,7 @@ exports.createLore = asyncHandler(async (req, res, next) => {
 });
 
 // @desc    Update lore
-// @route   PUT /api/v1/lores/:id
+// @route   PUT /api/v1/lore-collection/:id
 // @access  Private
 exports.updateLore = asyncHandler(async (req, res, next) => {
     let lore = await Lore.findById(req.params.id);
@@ -76,7 +76,7 @@ exports.updateLore = asyncHandler(async (req, res, next) => {
 });
 
 // @desc    Delete lore
-// @route   DELETE /api/v1/lores/:id
+// @route   DELETE /api/v1/lore-collection/:id
 // @access  Private
 exports.deleteLore = asyncHandler(async (req, res, next) => {
     const lore = await Lore.findById(req.params.id);
