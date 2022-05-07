@@ -8,7 +8,7 @@
 </div>
 <div>
   <div class="card-container">
-    <ng-container *ngIf="loreCollection | async as loreData">
+    <ng-container *ngIf="loreCollection | async as loreData; else spinner">
       <mat-card *ngFor="let lore of loreData"
                 class="lore-card">
         <mat-card-title>{{ lore.title }}</mat-card-title>
@@ -29,5 +29,10 @@
         </mat-card-actions>
       </mat-card>
     </ng-container>
+    <ng-template #spinner>
+      <div class="spinner-container">
+        <mat-spinner diameter="30"></mat-spinner>
+      </div>
+    </ng-template>
   </div>
 </div>
