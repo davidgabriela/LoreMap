@@ -1,26 +1,31 @@
 <div class="add-lore">
   <h1 typography>Add a new lore</h1>
-  <button mat-icon-button color="primary" (click)="openDialog()">
+  <button mat-icon-button
+          color="primary"
+          (click)="openDialog()">
     <mat-icon>add</mat-icon>
   </button>
 </div>
 <div>
   <div class="card-container">
     <ng-container *ngIf="loreCollection | async as loreData">
-      <mat-card *ngFor="let lore of loreData" class="lore-card">
+      <mat-card *ngFor="let lore of loreData"
+                class="lore-card">
         <mat-card-title>{{ lore.title }}</mat-card-title>
-        <mat-card-subtitle
-          >Created at: {{ lore.createdAt | date: "short" }}</mat-card-subtitle
-        >
+        <mat-card-subtitle>Created at: {{ lore.createdAt | date: "short" }}</mat-card-subtitle>
         <mat-card-actions>
-          <button mat-button color="primary">
+          <a mat-button
+             color="primary"
+             [routerLink]="['/write', lore._id]">
             <mat-icon>edit</mat-icon>
             WRITE
-          </button>
-          <button mat-button color="primary" (click)="removeLore(lore._id)">
+          </a>
+          <a mat-button
+             color="primary"
+             (click)="removeLore(lore._id)">
             <mat-icon>delete</mat-icon>
             DELETE
-          </button>
+          </a>
         </mat-card-actions>
       </mat-card>
     </ng-container>
