@@ -1,6 +1,5 @@
 <div class="container">
   <h1>Sign in</h1>
-  <form (submit)="login(email.value, password.value)">
     <mat-form-field appearance="fill">
       <mat-label>Enter your email</mat-label>
       <input
@@ -30,6 +29,5 @@
         <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
       </button>
     </mat-form-field>
-    <button mat-raised-button type="submit">Login</button>
-  </form>
+    <button mat-raised-button type="submit" (click)="login(email.value, password.value)">Login</button>
 </div>
