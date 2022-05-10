@@ -22,7 +22,7 @@ export class MainTextPageComponent implements OnInit {
     console.log('editor-created', event)
   }
 
-  changedEditor(event: EditorChangeContent | EditorChangeSelection) {
+  changedEditor(event: EditorChangeContent | EditorChangeSelection) {
     // tslint:disable-next-line:no-console
     console.log('editor-change', event)
   }
