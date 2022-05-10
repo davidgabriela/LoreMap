@@ -105,8 +105,6 @@ export class AuthService {
   }
 
   private saveAuthData(token: string, expirationDate: Date) {
-    // localStorage.setItem('token', token);
-    // localStorage.setItem('expiration', expirationDate.toString());
     this.cookieService.set('token', token)
     this.cookieService.set('expiration', expirationDate.toString());
   }

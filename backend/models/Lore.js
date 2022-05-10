@@ -16,6 +16,9 @@ const LoreSchema = new mongoose.Schema({
         ref: "User",
         required: true,
     },
+    content: {
+        type: String
+    }
 });
 
 module.exports = mongoose.model("Lore", LoreSchema);

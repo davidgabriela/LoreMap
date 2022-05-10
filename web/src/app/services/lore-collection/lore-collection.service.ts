@@ -3,6 +3,7 @@ import {
   HttpHeaders
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CookieService } from "ngx-cookie-service";
 import { Observable } from 'rxjs';
 import {
   map,
@@ -16,7 +17,7 @@ import { AuthService } from '../auth/auth.service';
   providedIn: 'root',
 })
 export class LoreCollectionService {
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient, private authService: AuthService, private cookieService: CookieService) { }
 
   user: User | null = null;
   private loresUrl = 'http://localhost:5000/api/v1/lore-collection';
@@ -31,6 +32,10 @@ export class LoreCollectionService {
     );
   }
 
+  getLore(id: string): Observable<Lore> {
+    return this.http.get(this.loresUrl + `/${id}`).pipe(map((data: any) => data.data))
+  }
+
   addLore(lore: Lore): Observable<any> {
     let header = new HttpHeaders().set('Content-type', 'application/json');
     let options = {
@@ -43,13 +48,17 @@ export class LoreCollectionService {
     return this.http.delete(this.loresUrl + `/${id}`);
   }
 
-  // updateLore(lore: Lore): Observable<any> {
-  //   const headers = new HttpHeaders({
-  //     'Content-Type': 'application/json',
-  //     'Authorization': `Bearer ${this.getToken()}`,
-  //   });
+  updateLore(id: string, htmlContent: string): Observable<any> {
+    console.log(htmlContent);
+    const body = {
+      content: htmlContent
+    };
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.cookieService.get('token')}`,
+    });
 
-  //   let options = {headers};
-  //   return this.http.post(this.loresUrl, lore, options);
-  // }
+    let options = {headers};
+    return this.http.put(this.loresUrl+`/${id}`, body, options);
+  }
 }

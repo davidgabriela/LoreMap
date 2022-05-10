@@ -34,6 +34,7 @@ export class LoreCollectionComponent {
       if (result) {
         const lore = {
           title: result,
+          content: ''
         };
         this.addLore(lore);
       }

@@ -1,6 +1,10 @@
-<quill-editor (onFocus)="focus($event)"
+<quill-editor #editor
+              (onFocus)="focus($event)"
               (onEditorChanged)="changedEditor($event)"
               (onBlur)="blur($event)"
               (onEditorCreated)="created($event)"
+              (onContentChanged)="contentChanged($event)"
+              [(ngModel)]="pageContent"
               [sanitize]="true">
 </quill-editor>
+
