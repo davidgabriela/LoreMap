@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from "ngx-cookie-service";
 import { map, Observable, Subject } from 'rxjs';
 import { User } from 'src/app/models/User';
 
@@ -13,7 +14,9 @@ export class AuthService {
   private token: string = '';
   private authStatusListener = new Subject<boolean>();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient,
+    private router: Router,
+    private cookieService: CookieService) {}
 
   getToken() {
     return this.token;
@@ -86,8 +89,8 @@ export class AuthService {
   }
 
   private getAuthData() {
-    const token = localStorage.getItem('token');
-    const expirationDate = localStorage.getItem('expiration');
+    const token = this.cookieService.get('token');
+    const expirationDate = this.cookieService.get('expiration');
     if (!token || !expirationDate) {
       return;
     }
@@ -102,12 +105,13 @@ export class AuthService {
   }
 
   private saveAuthData(token: string, expirationDate: Date) {
-    localStorage.setItem('token', token);
-    localStorage.setItem('expiration', expirationDate.toString());
+    // localStorage.setItem('token', token);
+    // localStorage.setItem('expiration', expirationDate.toString());
+    this.cookieService.set('token', token)
+    this.cookieService.set('expiration', expirationDate.toString());
   }
 
   private clearAuthData() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('expiration');
+    this.cookieService.deleteAll()
   }
 }

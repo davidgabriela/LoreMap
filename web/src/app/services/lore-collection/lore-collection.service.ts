@@ -42,4 +42,14 @@ export class LoreCollectionService {
   removeLore(id: string): Observable<any> {
     return this.http.delete(this.loresUrl + `/${id}`);
   }
+
+  // updateLore(lore: Lore): Observable<any> {
+  //   const headers = new HttpHeaders({
+  //     'Content-Type': 'application/json',
+  //     'Authorization': `Bearer ${this.getToken()}`,
+  //   });
+
+  //   let options = {headers};
+  //   return this.http.post(this.loresUrl, lore, options);
+  // }
 }

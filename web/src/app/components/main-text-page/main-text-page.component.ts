@@ -9,7 +9,9 @@ import Quill from 'quill';
 })
 export class MainTextPageComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+
+  }
 
   ngOnInit(): void {
   }
@@ -24,8 +26,13 @@ export class MainTextPageComponent implements OnInit {
 
   changedEditor(event: EditorChangeContent | EditorChangeSelection) {
     // tslint:disable-next-line:no-console
-    console.log('editor-change', event)
+    //console.log('editor-change', event)
   }
+
+  // contentChanged(obj: any) {
+  //   console.log('content-change----', obj.html)
+  //   updateLoreContent(obj.html)
+  // }
 
   focus($event: any) {
     // tslint:disable-next-line:no-console
