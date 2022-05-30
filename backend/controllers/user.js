@@ -60,6 +60,7 @@ const advancedResults = require("../middleware/advancedResults");
 // @desc    Update user details
 // @route   PUT /api/v1/auth/updatedetails
 // @access  Private
+
 exports.updateDetails = asyncHandler(async (req, res, next) => {
     const fieldsToUpdate = {
         name: req.body.name,

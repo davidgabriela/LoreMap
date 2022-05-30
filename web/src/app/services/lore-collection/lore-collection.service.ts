@@ -49,7 +49,7 @@ export class LoreCollectionService {
   }
 
   updateLore(id: string, htmlContent: string): Observable<any> {
-    console.log(htmlContent);
+    console.log("update with:", htmlContent);
     const body = {
       content: htmlContent
     };

@@ -14,7 +14,7 @@ export class MainTextPageComponent {
   @ViewChild('editor') editor: any;
   private routeSub: Subscription = new Subscription();
   private routeId: string = "";
-  pageContent: string ='';
+  content: string ='';
 
   modules = {
     toolbar: [
@@ -44,6 +44,8 @@ export class MainTextPageComponent {
       console.log(params['id'])
       this.routeId = params['id']
     });
+
+    //this.content = '&lt;p&gt;asdasfs&lt;/p&gt;'
   }
 
   ngOnDestroy() {
@@ -55,10 +57,12 @@ export class MainTextPageComponent {
 
   created(event: Quill) {
     // tslint:disable-next-line:no-console
+
     console.log('editor-created', event)
-    console.log(event);
+    // console.log(event);
     this.loreCollectionService.getLore(this.routeId).subscribe(res => {
-      this.pageContent = res.content
+      console.log("response: ", JSON.parse(res.content))
+      this.content = res.content
     });
   }
 
@@ -68,10 +72,13 @@ export class MainTextPageComponent {
   }
 
   contentChanged(obj: any) {
-    console.log('content-change', obj.html, this.routeId)
-    this.loreCollectionService.updateLore(this.routeId, obj.html).subscribe(respone => {
+
+    let change = obj.content
+    console.log('Saving changes...', change);
+
+    this.loreCollectionService.updateLore(this.routeId, JSON.stringify(change)).subscribe(respone => {
       console.log('Updated lore')
-      this.pageContent = obj.html
+      //this.pageContent = obj.html
     })
   }
 

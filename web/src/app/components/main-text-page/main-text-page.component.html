@@ -4,7 +4,8 @@
               (onBlur)="blur($event)"
               (onEditorCreated)="created($event)"
               (onContentChanged)="contentChanged($event)"
-              [(ngModel)]="pageContent"
-              [sanitize]="true">
+              format="json"
+              [(ngModel)]="content">
 </quill-editor>
+
 

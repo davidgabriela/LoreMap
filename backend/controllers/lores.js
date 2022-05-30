@@ -67,7 +67,7 @@ exports.updateLore = asyncHandler(async (req, res, next) => {
         );
     }
 
-    lore = await Lore.findOneAndUpdate(req.params.id, req.body, {
+    lore = await Lore.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true,
     });
