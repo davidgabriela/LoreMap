@@ -1,6 +1,6 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { FileUploadService } from 'src/app/services/file-upload/file-upload.service';
 
 @Component({
   selector: 'app-profile',
@@ -8,22 +8,56 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent {
-  /** Based on the screen size, switch from standard to one column per row */
-  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(({ matches }) => {
-      if (matches) {
-        return [
-          { title: 'Lores', cols: 2, rows: 2 },
-          { title: 'Friends List', cols: 2, rows: 2 },
-        ];
+  selectedFiles?: FileList;
+  selectedFileNames: string[] = [];
+
+  previews: string[] = [];
+  message: string[] = [];
+  imageInfos?: Observable<any>;
+
+  constructor(private uploadService: FileUploadService) {}
+
+  selectFiles(event: any): void {
+    this.message = [];
+    this.selectedFileNames = [];
+    this.selectedFiles = event.target.files;
+
+    this.previews = [];
+    if (this.selectedFiles && this.selectedFiles[0]) {
+      const numberOfFiles = this.selectedFiles.length;
+      for (let i = 0; i < numberOfFiles; i++) {
+        const reader = new FileReader();
+
+        reader.onload = (e: any) => {
+          this.previews.push(e.target.result);
+        };
+
+        reader.readAsDataURL(this.selectedFiles[i]);
+
+        this.selectedFileNames.push(this.selectedFiles[i].name);
       }
+    }
+  }
 
-      return [
-        { title: 'Lores', cols: 1, rows: 2 },
-        { title: 'Friends List', cols: 1, rows: 2 },
-      ];
-    })
-  );
+  upload(idx: number, file: File): void {
+    if (file) {
+      this.uploadService.upload(file).subscribe((res) => {
+        console.log(res);
+        console.log(`Uploaded ${file.name}`);
+        const msg = 'Uploaded the file successfully: ' + file.name;
+        this.message.push(msg);
+        this.imageInfos = this.uploadService.getFiles();
+      });
+    }
+  }
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  uploadFiles(): void {
+    this.message = [];
+
+    if (this.selectedFiles) {
+      for (let i = 0; i < this.selectedFiles.length; i++) {
+        this.upload(i, this.selectedFiles[i]);
+      }
+    }
+  }
 }
