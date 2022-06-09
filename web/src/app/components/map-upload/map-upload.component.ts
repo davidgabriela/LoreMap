@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FileUploadService } from 'src/app/services/file-upload/file-upload.service';
 
@@ -10,12 +11,16 @@ import { FileUploadService } from 'src/app/services/file-upload/file-upload.serv
 export class MapUploadComponent {
   selectedFiles?: FileList;
   selectedFileNames: string[] = [];
+  mapId: string = '';
 
   previews: string[] = [];
   message: string[] = [];
   imageInfos?: Observable<any>;
 
-  constructor(private uploadService: FileUploadService) {}
+  constructor(
+    private uploadService: FileUploadService,
+    private router: Router
+  ) {}
 
   selectFiles(event: any): void {
     this.message = [];
@@ -42,8 +47,9 @@ export class MapUploadComponent {
   upload(idx: number, file: File): void {
     if (file) {
       this.uploadService.upload(file).subscribe((res) => {
-        console.log(res);
-        console.log(`Uploaded ${file.name}`);
+        console.log(res.data._id);
+        this.mapId = res.data._id;
+        this.router.navigate([`/map/${this.mapId}`]);
         const msg = 'Uploaded the file successfully: ' + file.name;
         this.message.push(msg);
         this.imageInfos = this.uploadService.getFiles();
@@ -58,6 +64,7 @@ export class MapUploadComponent {
       for (let i = 0; i < this.selectedFiles.length; i++) {
         this.upload(i, this.selectedFiles[i]);
       }
+      // Switch to new page with that map
     }
   }
 }

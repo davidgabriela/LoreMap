@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/auth/login/login.component';
 import { LoreCollectionComponent } from './components/lore-collection/lore-collection.component';
 import { MainTextPageComponent } from './components/main-text-page/main-text-page.component';
+import { MapPageComponent } from './components/map-page/map-page.component';
 import { MapUploadComponent } from './components/map-upload/map-upload.component';
 import { AuthGuard } from './services/auth/auth.guard';
 
@@ -22,6 +23,11 @@ const routes: Routes = [
   {
     path: 'write/:id',
     component: MainTextPageComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'map/:id',
+    component: MapPageComponent,
     canActivate: [AuthGuard],
   },
 ];

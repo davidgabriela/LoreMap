@@ -1,4 +1,4 @@
-import { HttpClient, HttpRequest } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -25,12 +25,11 @@ export class FileUploadService {
     formData.append('mapData', 'Some map data...');
 
     console.log(file);
-    const req = new HttpRequest('POST', `${this.baseUrl}`, formData, {
+
+    return this.http.post(`${this.baseUrl}`, formData, {
       reportProgress: true,
       responseType: 'json',
     });
-
-    return this.http.request(req);
   }
 
   getFiles(): Observable<any> {

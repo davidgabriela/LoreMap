@@ -28,6 +28,7 @@ import { MainTextPageComponent } from './components/main-text-page/main-text-pag
 import { MapUploadComponent } from './components/map-upload/map-upload.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { AuthInterceptor } from './services/auth/auth-interceptor';
+import { MapPageComponent } from './components/map-page/map-page.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { AuthInterceptor } from './services/auth/auth-interceptor';
     LoreCollectionComponent,
     LoginComponent,
     MainTextPageComponent,
+    MapPageComponent,
   ],
   imports: [
     BrowserModule,
