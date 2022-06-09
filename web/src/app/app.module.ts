@@ -25,19 +25,19 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { DialogBodyComponent } from './components/dialog-body/dialog-body.component';
 import { LoreCollectionComponent } from './components/lore-collection/lore-collection.component';
 import { MainTextPageComponent } from './components/main-text-page/main-text-page.component';
+import { MapUploadComponent } from './components/map-upload/map-upload.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
-import { ProfileComponent } from './components/profile/profile.component';
 import { AuthInterceptor } from './services/auth/auth-interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProfileComponent,
+    MapUploadComponent,
     NavigationComponent,
     DialogBodyComponent,
     LoreCollectionComponent,
     LoginComponent,
-    MainTextPageComponent
+    MainTextPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +60,7 @@ import { AuthInterceptor } from './services/auth/auth-interceptor';
     MatDialogModule,
     MatInputModule,
     MatProgressSpinnerModule,
-    QuillModule
+    QuillModule,
   ],
   providers: [
     CookieService,

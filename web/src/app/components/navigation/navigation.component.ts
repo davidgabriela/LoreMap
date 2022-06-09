@@ -39,11 +39,11 @@ export class NavigationComponent {
       case 'lore-collection':
         this.sectionName = 'My collection';
         break;
-      case 'profile':
-        this.sectionName = 'Profile';
+      case 'map-upload':
+        this.sectionName = 'Upload map';
         break;
       default:
-        this.sectionName = 'Profile';
+        this.sectionName = 'NA';
         break;
     }
   }

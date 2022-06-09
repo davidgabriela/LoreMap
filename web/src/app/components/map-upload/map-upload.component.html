@@ -1,4 +1,4 @@
-<div>
+<div class="photo-upload-container">
   <mat-form-field>
     <div>
       <mat-toolbar>
@@ -10,15 +10,16 @@
         />
 
         <button
-          mat-flat-button
+          mat-raised-button
           color="primary"
           [disabled]="!selectedFiles"
           (click)="uploadFiles()"
         >
-          Upload
+          Create a new map
         </button>
       </mat-toolbar>
       <input
+        class="hidden-input"
         type="file"
         id="fileInput"
         name="fileInput"

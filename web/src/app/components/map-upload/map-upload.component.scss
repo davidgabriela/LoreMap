@@ -1,3 +1,9 @@
+.photo-upload-container{
+  margin: 0 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .mat-input-element {
   font-size: medium;
   font-weight: 200;
@@ -11,6 +17,7 @@
   height: 100%;
   left: 0px;
   top: 0px;
+  width: 100%;
 }
 
 .mat-toolbar-single-row {
@@ -20,7 +27,18 @@
 }
 
 .mat-toolbar-single-row button {
-  width: 100px;
+  //width: 100px;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  z-index: 20;
+}
+
+.mat-toolbar-single-row button {
+  //width: 100px;
+  padding: 0 50px;
+  z-index: 20;
 }
 
 .mat-form-field {
@@ -37,7 +55,7 @@
 }
 
 .preview {
-  max-width: 200px;
+  max-width: 100%;
   vertical-align: middle;
 }
 

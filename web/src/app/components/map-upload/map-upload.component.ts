@@ -3,11 +3,11 @@ import { Observable } from 'rxjs';
 import { FileUploadService } from 'src/app/services/file-upload/file-upload.service';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss'],
+  selector: 'app-map-upload',
+  templateUrl: './map-upload.component.html',
+  styleUrls: ['./map-upload.component.scss'],
 })
-export class ProfileComponent {
+export class MapUploadComponent {
   selectedFiles?: FileList;
   selectedFileNames: string[] = [];
 

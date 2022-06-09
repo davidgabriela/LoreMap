@@ -6,15 +6,15 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ProfileComponent } from './profile.component';
+import { MapUploadComponent } from './map-upload.component';
 
 describe('ProfileComponentComponent', () => {
-  let component: ProfileComponent;
-  let fixture: ComponentFixture<ProfileComponent>;
+  let component: MapUploadComponent;
+  let fixture: ComponentFixture<MapUploadComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ProfileComponent],
+      declarations: [MapUploadComponent],
       imports: [
         NoopAnimationsModule,
         LayoutModule,
@@ -28,7 +28,7 @@ describe('ProfileComponentComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProfileComponent);
+    fixture = TestBed.createComponent(MapUploadComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
