@@ -34,6 +34,7 @@ export class MapUploadComponent {
         const reader = new FileReader();
 
         reader.onload = (e: any) => {
+          console.log('selectFiles', e.target.result);
           this.previews.push(e.target.result);
         };
 
@@ -64,7 +65,6 @@ export class MapUploadComponent {
       for (let i = 0; i < this.selectedFiles.length; i++) {
         this.upload(i, this.selectedFiles[i]);
       }
-      // Switch to new page with that map
     }
   }
 }

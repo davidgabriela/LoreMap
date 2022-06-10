@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const MapSchema = new mongoose.Schema({
   imageFile: {
     type: Object,
-    default: { key: 'No image' },
+    default: { data: '' },
   },
   mapData: {
     type: String,

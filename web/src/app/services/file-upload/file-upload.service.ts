@@ -24,8 +24,6 @@ export class FileUploadService {
     formData.append('imageFile', file);
     formData.append('mapData', 'Some map data...');
 
-    console.log(file);
-
     return this.http.post(`${this.baseUrl}`, formData, {
       reportProgress: true,
       responseType: 'json',

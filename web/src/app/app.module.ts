@@ -17,6 +17,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { CookieService } from 'ngx-cookie-service';
 import { QuillModule } from 'ngx-quill';
 import { AppRoutingModule } from './app-routing.module';
@@ -25,10 +26,12 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { DialogBodyComponent } from './components/dialog-body/dialog-body.component';
 import { LoreCollectionComponent } from './components/lore-collection/lore-collection.component';
 import { MainTextPageComponent } from './components/main-text-page/main-text-page.component';
+import { MapPageComponent } from './components/map-page/map-page.component';
 import { MapUploadComponent } from './components/map-upload/map-upload.component';
+import { MapComponent } from './components/map/map.component';
+import { SafeUrlPipe } from './components/map/safe-url.pipe';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { AuthInterceptor } from './services/auth/auth-interceptor';
-import { MapPageComponent } from './components/map-page/map-page.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,8 @@ import { MapPageComponent } from './components/map-page/map-page.component';
     LoginComponent,
     MainTextPageComponent,
     MapPageComponent,
+    MapComponent,
+    SafeUrlPipe,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +68,7 @@ import { MapPageComponent } from './components/map-page/map-page.component';
     MatInputModule,
     MatProgressSpinnerModule,
     QuillModule,
+    LeafletModule,
   ],
   providers: [
     CookieService,
