@@ -1,5 +1,12 @@
-<div class="map-container">
+<!-- <div class="map-container">
   <div class="map-frame">
     <div id="map"></div>
   </div>
-</div>
+</div> -->
+
+<div
+  style="height: 80vh"
+  leaflet
+  [leafletOptions]="options"
+  (leafletMapReady)="initMap($event)"
+></div>

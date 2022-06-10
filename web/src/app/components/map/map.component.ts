@@ -1,5 +1,7 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as L from 'leaflet';
+import { imageOverlay, latLng, Layer, marker } from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -7,44 +9,49 @@ import { Observable } from 'rxjs';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
-export class MapComponent implements AfterViewInit {
+export class MapComponent implements OnInit {
   @Input() sourceImage: Observable<any> = new Observable();
-  private map: any;
+
+  // showCoords = (e: any) => {
+  //   console.log(e);
+  //   var marker = L.marker(e.latlng, { alt: 'new' })
+  //     .addTo(map) // "Kyiv" is the accessible name of this marker
+  //     .bindPopup('Kyiv, Ukraine is the birthplace of Leaflet!');
+  // };
 
   options = {
-    maxZoom: 4,
-    minZoom: -5,
     crs: L.CRS.Simple,
+    minZoom: -5,
+    zoom: 5,
+    center: latLng(0, 0),
   };
 
-  private initMap(): void {
+  layers: Layer[] = [];
+
+  public initMap(map: any): void {
     this.sourceImage.subscribe((res) => {
-      this.map = L.map('map', {
-        maxZoom: 4,
-        minZoom: -5,
-        crs: L.CRS.Simple,
-      });
-
-      var bounds: [number, number][] = [
-        [0, 0],
-        [1000, 1000],
-      ];
-
       const imgUrl = `data:${res.imageFile['mimetype']};base64,${res.imageFile['data']}`;
-      console.log('src?', imgUrl);
-      var image = L.imageOverlay(imgUrl, bounds).addTo(this.map);
+      const imgBounds: L.LatLngBoundsExpression = [
+        [0, 0],
+        // TODO: Igrab from image data
+        [1000, 1500],
+      ];
+      const overlay = imageOverlay(imgUrl, imgBounds).addTo(map);
 
-      this.map.fitBounds(bounds);
+      map.fitBounds(imgBounds);
+
+      map.on('contextmenu', (e: any) => {
+        console.log(e.latLng);
+        var s = marker(e.latlng, { alt: 'new' })
+          .addTo(map)
+          .bindPopup('Kyiv, Ukraine is the birthplace of Leaflet!');
+      });
+      // this.layers.push(overlay);
     });
   }
 
-  // this.map.on('click', function(e: any) {
-  //   alert(e.latlng)
-  // })
-
   constructor() {}
-
-  ngAfterViewInit(): void {
-    this.initMap();
+  ngOnInit(): void {
+    L.Icon.Default.imagePath = 'assets/leaflet/';
   }
 }
