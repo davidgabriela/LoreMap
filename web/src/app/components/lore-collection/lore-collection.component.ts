@@ -27,14 +27,18 @@ export class LoreCollectionComponent {
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogBodyComponent, {
       width: '400px',
-      data: { name: this.name },
+      data: {
+        dialogTitle: 'Enter a title for your new lore',
+        dialogLabel: 'Enter title',
+        dialogSubmit: 'Add new lore',
+      },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         const lore = {
           title: result,
-          content: ''
+          content: '',
         };
         this.addLore(lore);
       }

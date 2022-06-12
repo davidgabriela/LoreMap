@@ -11,12 +11,23 @@ export interface DialogData {
   styleUrls: ['./dialog-body.component.scss'],
 })
 export class DialogBodyComponent {
+  dialogTitle: string = '';
+  dialogLabel: string = '';
+  dialogSubmit: string = '';
+
   constructor(
     public dialogRef: MatDialogRef<DialogBodyComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  ngOnInit() {
+    this.dialogTitle = this.data.dialogTitle;
+    this.dialogLabel = this.data.dialogLabel;
+    this.dialogSubmit = this.data.dialogSubmit;
+    console.log(this.data);
   }
 }

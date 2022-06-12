@@ -9,4 +9,12 @@
   leaflet
   [leafletOptions]="options"
   (leafletMapReady)="initMap($event)"
+  (contextmenu)="open($event); $event.preventDefault()"
 ></div>
+
+<ng-template #userMenu>
+  <mat-action-list class="context-menu">
+    <button (click)="openDialog()" mat-list-item>Add pin</button>
+    <button *ngIf="isOnPin()" mat-list-item>Delete Pin</button>
+  </mat-action-list>
+</ng-template>

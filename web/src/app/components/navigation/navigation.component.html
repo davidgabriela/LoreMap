@@ -11,29 +11,125 @@
       <h2>LoreMap</h2>
     </mat-toolbar>
 
-    <mat-nav-list>
-      <a mat-list-item routerLink="/map-upload">
-        <mat-icon>account_circle</mat-icon>
-        <span>Map upload</span>
-      </a>
-      <a mat-list-item routerLink="/lore-collection">
-        <mat-icon>book</mat-icon>
-        <span>My Lore Collection</span>
-      </a>
-      <mat-divider></mat-divider>
-      <a mat-list-item routerLink="/help">
-        <mat-icon>help_outline</mat-icon>
-        <span>Help</span>
-      </a>
-      <a mat-list-item routerLink="/settings">
-        <mat-icon>settings</mat-icon>
-        <span>Account Settings</span>
-      </a>
-      <a mat-list-item (click)="logout()">
-        <mat-icon>exit_to_app</mat-icon>
-        <span>Logout</span>
-      </a>
-    </mat-nav-list>
+    <ng-container [ngSwitch]="sectionName">
+      <mat-nav-list *ngSwitchCase="'{ Lore title }'">
+        <a mat-list-item routerLink="/lore-collection">
+          <mat-icon>collections_bookmark</mat-icon>
+          <span>Back to Lore Collection</span>
+        </a>
+        <mat-divider></mat-divider>
+        <a mat-list-item routerLink="/map-upload">
+          <mat-icon>map</mat-icon>
+          <span>Maps</span>
+        </a>
+        <mat-divider></mat-divider>
+        <a mat-list-item routerLink="/help">
+          <mat-icon>help_outline</mat-icon>
+          <span>Help</span>
+        </a>
+        <a mat-list-item routerLink="/settings">
+          <mat-icon>settings</mat-icon>
+          <span>Account Settings</span>
+        </a>
+        <a mat-list-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Logout</span>
+        </a>
+      </mat-nav-list>
+
+      <mat-nav-list *ngSwitchCase="'Upload map'">
+        <a mat-list-item routerLink="">
+          <mat-icon>book</mat-icon>
+          <span>Back to main page</span>
+        </a>
+        <a mat-list-item routerLink="/lore-collection">
+          <mat-icon>collections_bookmark</mat-icon>
+          <span>Back to Lore Collection</span>
+        </a>
+        <mat-divider></mat-divider>
+        <a mat-list-item routerLink="/map-upload">
+          <mat-icon>map</mat-icon>
+          <span>Map upload</span>
+        </a>
+        <mat-divider></mat-divider>
+        <a mat-list-item routerLink="/help">
+          <mat-icon>help_outline</mat-icon>
+          <span>Help</span>
+        </a>
+        <a mat-list-item routerLink="/settings">
+          <mat-icon>settings</mat-icon>
+          <span>Account Settings</span>
+        </a>
+        <a mat-list-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Logout</span>
+        </a>
+      </mat-nav-list>
+
+      <mat-nav-list *ngSwitchCase="'{ Map title }'">
+        <a mat-list-item routerLink="/map-upload">
+          <mat-icon>collections_bookmark</mat-icon>
+          <span>Back to map collection</span>
+        </a>
+        <mat-divider></mat-divider>
+        <a mat-list-item routerLink="/map-upload">
+          <mat-icon>map</mat-icon>
+          <span>Map upload</span>
+        </a>
+        <mat-divider></mat-divider>
+        <a mat-list-item routerLink="/help">
+          <mat-icon>help_outline</mat-icon>
+          <span>Help</span>
+        </a>
+        <a mat-list-item routerLink="/settings">
+          <mat-icon>settings</mat-icon>
+          <span>Account Settings</span>
+        </a>
+        <a mat-list-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Logout</span>
+        </a>
+      </mat-nav-list>
+
+      <mat-nav-list *ngSwitchCase="'My collection'">
+        <a mat-list-item routerLink="/lore-collection">
+          <mat-icon>collections_bookmark</mat-icon>
+          <span>My Lore Collection</span>
+        </a>
+        <mat-divider></mat-divider>
+        <a mat-list-item routerLink="/help">
+          <mat-icon>help_outline</mat-icon>
+          <span>Help</span>
+        </a>
+        <a mat-list-item routerLink="/settings">
+          <mat-icon>settings</mat-icon>
+          <span>Account Settings</span>
+        </a>
+        <a mat-list-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Logout</span>
+        </a>
+      </mat-nav-list>
+
+      <mat-nav-list *ngSwitchDefault="">
+        <a mat-list-item routerLink="/subscription-plans">
+          <mat-icon>attach_money</mat-icon>
+          <span>Subscription plans</span>
+        </a>
+        <a mat-list-item routerLink="/features">
+          <mat-icon>description</mat-icon>
+          <span>Features</span>
+        </a>
+        <a mat-list-item routerLink="/login">
+          <mat-icon>account_circle</mat-icon>
+          <span>Login</span>
+        </a>
+        <a mat-list-item routerLink="/register">
+          <mat-icon>assignment_ind</mat-icon>
+          <span>Create account</span>
+        </a>
+      </mat-nav-list>
+    </ng-container>
   </mat-sidenav>
 
   <mat-sidenav-content>

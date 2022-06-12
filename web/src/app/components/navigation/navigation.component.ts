@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class NavigationComponent {
   sectionName = '';
+  fullUrl = '';
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
@@ -28,24 +29,36 @@ export class NavigationComponent {
 
   ngOnInit() {
     this.router.events.subscribe((event) => {
-      event instanceof NavigationEnd
-        ? this.setPageName(event.url.replace('/', ''))
-        : null;
+      if (event instanceof NavigationEnd) {
+        console.log(event.url);
+        this.fullUrl = event.url;
+        this.setPageName(event.url.split('/')[1]);
+      } else null;
     });
   }
 
   setPageName(name: String): void {
     switch (name) {
+      case 'login':
+        this.sectionName = 'Login';
+        break;
       case 'lore-collection':
         this.sectionName = 'My collection';
         break;
       case 'map-upload':
         this.sectionName = 'Upload map';
         break;
+      case 'write':
+        this.sectionName = '{ Lore title }';
+        break;
+      case 'map':
+        this.sectionName = '{ Map title }';
+        break;
       default:
         this.sectionName = 'NA';
         break;
     }
+    console.log('PAGE NAME:', this.sectionName);
   }
 
   logout() {

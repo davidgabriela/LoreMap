@@ -9,11 +9,11 @@ const MapSchema = new mongoose.Schema({
     type: String,
     default: 'No map data',
   },
-  // lore: {
-  //     type: mongoose.Schema.ObjectId,
-  //     ref: "Lore",
-  //     required: true
-  // },
+  lore: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Lore',
+    // required: true,
+  },
 })
 
 module.exports = mongoose.model('Map', MapSchema)

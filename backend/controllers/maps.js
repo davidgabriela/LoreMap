@@ -6,9 +6,16 @@ const mongoose = require('mongoose')
 
 // @desc    Get all maps
 // @route   GET /api/v1/maps
+// @route   GET /api/v1/lore-collection/:id/maps
 // @access  Public
 exports.getMaps = asyncHandler(async (req, res, next) => {
-  const maps = await Map.find()
+  let query
+  if (req.params.loreId) {
+    query = Map.find({ lore: req.params.loreId })
+  } else {
+    query = Map.find()
+  }
+  const maps = await query
 
   res.status(200).json(res.advancedResults)
 })
