@@ -13,6 +13,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class NavigationComponent {
   sectionName = '';
   fullUrl = '';
+  loreId = '';
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
@@ -30,9 +31,14 @@ export class NavigationComponent {
   ngOnInit() {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        console.log(event.url);
         this.fullUrl = event.url;
-        this.setPageName(event.url.split('/')[1]);
+        const params = event.url.split('/');
+        if (params[1] === 'lore-collection' && params.length > 2) {
+          this.setPageName(params[3]);
+          this.loreId = params[2];
+        } else {
+          this.setPageName(params[1]);
+        }
       } else null;
     });
   }
@@ -55,7 +61,7 @@ export class NavigationComponent {
         this.sectionName = '{ Map title }';
         break;
       default:
-        this.sectionName = 'NA';
+        this.sectionName = '[ UNKNOWN ]';
         break;
     }
     console.log('PAGE NAME:', this.sectionName);

@@ -12,7 +12,8 @@ import { MapsService } from 'src/app/services/maps/maps.service';
 })
 export class MapPageComponent implements OnInit {
   public routeSub: Subscription = new Subscription();
-  public routeId: string = '';
+  public mapId: string = '';
+  public loreId: string = '';
   public imageData: Observable<any> = new Observable();
 
   constructor(
@@ -23,7 +24,8 @@ export class MapPageComponent implements OnInit {
 
   getMapId = () => {
     this.routeSub = this.route.params.subscribe((params) => {
-      this.routeId = params['id'];
+      this.mapId = params['mapId'];
+      this.loreId = params['loreId'];
     });
   };
 
@@ -37,9 +39,9 @@ export class MapPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMapId();
-    console.log(this.routeId);
+    console.log(this.mapId);
     //this.imageData = `data:${res.imageFile['mimetype']};base64,${res.imageFile['data']}`;
-    this.imageData = this.mapsService.getMap(this.routeId);
+    this.imageData = this.mapsService.getMap(this.loreId, this.mapId);
   }
 
   ngOnDestroy() {

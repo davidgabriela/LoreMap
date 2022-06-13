@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/lore-collection', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   {
-    path: 'map-upload',
+    path: 'lore-collection/:id/map-upload',
     component: MapUploadComponent,
     canActivate: [AuthGuard],
   },
@@ -21,12 +21,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'write/:id',
+    path: 'lore-collection/:id/write',
     component: MainTextPageComponent,
     canActivate: [AuthGuard],
   },
   {
-    path: 'map/:id',
+    path: 'lore-collection/:loreId/maps/:mapId',
     component: MapPageComponent,
     canActivate: [AuthGuard],
   },

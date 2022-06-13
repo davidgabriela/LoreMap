@@ -19,10 +19,13 @@ export class FileUploadService {
     return this.http.post(this.loresUrl, lore, options);
    */
 
-  upload(file: File): Observable<any> {
+  upload(file: File, loreId: string): Observable<any> {
     const formData: FormData = new FormData();
     formData.append('imageFile', file);
     formData.append('mapData', 'Some map data...');
+    formData.append('lore', loreId);
+
+    console.log('create map with:', formData);
 
     return this.http.post(`${this.baseUrl}`, formData, {
       reportProgress: true,

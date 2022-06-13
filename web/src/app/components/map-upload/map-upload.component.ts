@@ -12,6 +12,7 @@ export class MapUploadComponent {
   selectedFiles?: FileList;
   selectedFileNames: string[] = [];
   mapId: string = '';
+  loreId: string = '';
 
   previews: string[] = [];
   message: string[] = [];
@@ -22,6 +23,9 @@ export class MapUploadComponent {
     private router: Router
   ) {}
 
+  ngOnInit() {
+    console.log('LORE ID?? ', this.router.url);
+  }
   selectFiles(event: any): void {
     this.message = [];
     this.selectedFileNames = [];
@@ -34,7 +38,6 @@ export class MapUploadComponent {
         const reader = new FileReader();
 
         reader.onload = (e: any) => {
-          console.log('selectFiles', e.target.result);
           this.previews.push(e.target.result);
         };
 
@@ -47,10 +50,14 @@ export class MapUploadComponent {
 
   upload(idx: number, file: File): void {
     if (file) {
-      this.uploadService.upload(file).subscribe((res) => {
+      this.loreId = this.router.url.split('/')[2];
+      this.uploadService.upload(file, this.loreId).subscribe((res) => {
         console.log(res.data._id);
         this.mapId = res.data._id;
-        this.router.navigate([`/map/${this.mapId}`]);
+        console.log('LORE ID & map id ', this.loreId, this.mapId);
+        this.router.navigate([
+          `lore-collection/${this.loreId}/maps/${this.mapId}`,
+        ]);
         const msg = 'Uploaded the file successfully: ' + file.name;
         this.message.push(msg);
         this.imageInfos = this.uploadService.getFiles();

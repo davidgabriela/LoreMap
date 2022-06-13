@@ -15,10 +15,13 @@
       <mat-nav-list *ngSwitchCase="'{ Lore title }'">
         <a mat-list-item routerLink="/lore-collection">
           <mat-icon>collections_bookmark</mat-icon>
-          <span>Back to Lore Collection</span>
+          <span>Lore Collection</span>
         </a>
         <mat-divider></mat-divider>
-        <a mat-list-item routerLink="/map-upload">
+        <a
+          mat-list-item
+          [routerLink]="['lore-collection', loreId, 'map-upload']"
+        >
           <mat-icon>map</mat-icon>
           <span>Maps</span>
         </a>
@@ -38,16 +41,19 @@
       </mat-nav-list>
 
       <mat-nav-list *ngSwitchCase="'Upload map'">
-        <a mat-list-item routerLink="">
+        <a mat-list-item [routerLink]="['lore-collection', loreId, 'write']">
           <mat-icon>book</mat-icon>
-          <span>Back to main page</span>
+          <span>Write lore</span>
         </a>
         <a mat-list-item routerLink="/lore-collection">
           <mat-icon>collections_bookmark</mat-icon>
-          <span>Back to Lore Collection</span>
+          <span>Lore Collection</span>
         </a>
         <mat-divider></mat-divider>
-        <a mat-list-item routerLink="/map-upload">
+        <a
+          mat-list-item
+          [routerLink]="['lore-collection', loreId, 'map-upload']"
+        >
           <mat-icon>map</mat-icon>
           <span>Map upload</span>
         </a>
@@ -67,12 +73,18 @@
       </mat-nav-list>
 
       <mat-nav-list *ngSwitchCase="'{ Map title }'">
-        <a mat-list-item routerLink="/map-upload">
+        <a
+          mat-list-item
+          [routerLink]="['lore-collection', loreId, 'map-upload']"
+        >
           <mat-icon>collections_bookmark</mat-icon>
-          <span>Back to map collection</span>
+          <span>Map collection</span>
         </a>
         <mat-divider></mat-divider>
-        <a mat-list-item routerLink="/map-upload">
+        <a
+          mat-list-item
+          [routerLink]="['lore-collection', loreId, 'map-upload']"
+        >
           <mat-icon>map</mat-icon>
           <span>Map upload</span>
         </a>

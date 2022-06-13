@@ -1,4 +1,5 @@
 import { LayoutModule } from '@angular/cdk/layout';
+import { CdkTreeModule } from '@angular/cdk/tree';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -24,6 +25,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { DialogBodyComponent } from './components/dialog-body/dialog-body.component';
+import { DocumentTreeComponent } from './components/document-tree/document-tree.component';
 import { LoreCollectionComponent } from './components/lore-collection/lore-collection.component';
 import { MainTextPageComponent } from './components/main-text-page/main-text-page.component';
 import { MapPageComponent } from './components/map-page/map-page.component';
@@ -45,6 +47,7 @@ import { AuthInterceptor } from './services/auth/auth-interceptor';
     MapPageComponent,
     MapComponent,
     SafeUrlPipe,
+    DocumentTreeComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,6 +72,7 @@ import { AuthInterceptor } from './services/auth/auth-interceptor';
     MatProgressSpinnerModule,
     QuillModule,
     LeafletModule,
+    CdkTreeModule,
   ],
   providers: [
     CookieService,
