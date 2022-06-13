@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
@@ -25,6 +26,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { DialogBodyComponent } from './components/dialog-body/dialog-body.component';
+import { DocumentExpoansionPanelComponent } from './components/document-expoansion-panel/document-expoansion-panel.component';
 import { DocumentTreeComponent } from './components/document-tree/document-tree.component';
 import { LoreCollectionComponent } from './components/lore-collection/lore-collection.component';
 import { MainTextPageComponent } from './components/main-text-page/main-text-page.component';
@@ -48,6 +50,7 @@ import { AuthInterceptor } from './services/auth/auth-interceptor';
     MapComponent,
     SafeUrlPipe,
     DocumentTreeComponent,
+    DocumentExpoansionPanelComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +76,7 @@ import { AuthInterceptor } from './services/auth/auth-interceptor';
     QuillModule,
     LeafletModule,
     CdkTreeModule,
+    MatExpansionModule,
   ],
   providers: [
     CookieService,

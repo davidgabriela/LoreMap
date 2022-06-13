@@ -11,8 +11,22 @@
       <h2>LoreMap</h2>
     </mat-toolbar>
 
+    <!-- Should be included in mat-nav-list -->
+    <!-- <mat-list>
+      <mat-list-item>
+        <mat-icon>description</mat-icon>
+        <span>Documents</span>
+      </mat-list-item>
+      <app-document-tree></app-document-tree>
+    </mat-list> -->
+
+    <app-document-expoansion-panel></app-document-expoansion-panel>
+    <!-- Should be included in mat-nav-list -->
+
     <ng-container [ngSwitch]="sectionName">
       <mat-nav-list *ngSwitchCase="'{ Lore title }'">
+        <mat-divider></mat-divider>
+
         <a mat-list-item routerLink="/lore-collection">
           <mat-icon>collections_bookmark</mat-icon>
           <span>Lore Collection</span>
@@ -26,10 +40,6 @@
           <span>Maps</span>
         </a>
         <mat-divider></mat-divider>
-        <a mat-list-item routerLink="/help">
-          <mat-icon>help_outline</mat-icon>
-          <span>Help</span>
-        </a>
         <a mat-list-item routerLink="/settings">
           <mat-icon>settings</mat-icon>
           <span>Account Settings</span>
@@ -41,7 +51,7 @@
       </mat-nav-list>
 
       <mat-nav-list *ngSwitchCase="'Upload map'">
-        <a mat-list-item [routerLink]="['lore-collection', loreId, 'write']">
+        <a mat-list-item [routerLink]="['lore-collection', loreId, 'main']">
           <mat-icon>book</mat-icon>
           <span>Write lore</span>
         </a>
@@ -58,10 +68,6 @@
           <span>Map upload</span>
         </a>
         <mat-divider></mat-divider>
-        <a mat-list-item routerLink="/help">
-          <mat-icon>help_outline</mat-icon>
-          <span>Help</span>
-        </a>
         <a mat-list-item routerLink="/settings">
           <mat-icon>settings</mat-icon>
           <span>Account Settings</span>
@@ -89,10 +95,6 @@
           <span>Map upload</span>
         </a>
         <mat-divider></mat-divider>
-        <a mat-list-item routerLink="/help">
-          <mat-icon>help_outline</mat-icon>
-          <span>Help</span>
-        </a>
         <a mat-list-item routerLink="/settings">
           <mat-icon>settings</mat-icon>
           <span>Account Settings</span>
@@ -109,10 +111,6 @@
           <span>My Lore Collection</span>
         </a>
         <mat-divider></mat-divider>
-        <a mat-list-item routerLink="/help">
-          <mat-icon>help_outline</mat-icon>
-          <span>Help</span>
-        </a>
         <a mat-list-item routerLink="/settings">
           <mat-icon>settings</mat-icon>
           <span>Account Settings</span>

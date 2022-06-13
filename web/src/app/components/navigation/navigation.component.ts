@@ -54,8 +54,8 @@ export class NavigationComponent {
       case 'map-upload':
         this.sectionName = 'Upload map';
         break;
-      case 'write':
-        this.sectionName = '{ Lore title }';
+      case 'main':
+        this.sectionName = 'Main Page of { Lore title }';
         break;
       case 'map':
         this.sectionName = '{ Map title }';

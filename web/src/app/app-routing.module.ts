@@ -21,7 +21,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'lore-collection/:id/write',
+    path: 'lore-collection/:id/main',
     component: MainTextPageComponent,
     canActivate: [AuthGuard],
   },

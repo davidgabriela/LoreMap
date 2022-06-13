@@ -1,48 +1,52 @@
 import { Component, ViewChild } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from '@angular/router';
 import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
 import Quill from 'quill';
-import { Subscription } from "rxjs";
-import { LoreCollectionService } from "src/app/services/lore-collection/lore-collection.service";
+import BlotFormatter from 'quill-blot-formatter';
+import { Subscription } from 'rxjs';
+import { LoreCollectionService } from 'src/app/services/lore-collection/lore-collection.service';
+
+Quill.register('modules/blotFormatter', BlotFormatter);
 
 @Component({
   selector: 'app-main-text-page',
   templateUrl: './main-text-page.component.html',
-  styleUrls: ['./main-text-page.component.scss']
+  styleUrls: ['./main-text-page.component.scss'],
 })
 export class MainTextPageComponent {
   @ViewChild('editor') editor: any;
   private routeSub: Subscription = new Subscription();
-  private routeId: string = "";
-  content: string ='';
+  private routeId: string = '';
+  content: string = '';
 
   modules = {
     toolbar: [
-    ['bold', 'italic', 'strike'], // toggled buttons
-    [{ 'header': 1 }, { 'header': 2 }], // custom button values
-    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-    [{ 'script': 'sub' }, { 'script': 'super' }], // superscript/subscript
-    [{ 'indent': '-1' }, { 'indent': '+1' }], // outdent/indent
-    [{ 'direction': 'rtl' }], // text direction
-    [{ 'size': ['small', false, 'large', 'huge'] }], // custom dropdown
-    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-    [{ 'color': [] }, { 'background': [] }], // dropdown with defaults from theme
-    [{ 'font': [] }],
-    [{ 'align': [] }],
-    ['clean'], // remove formatting button
-    ['link', 'image'], // link and image, video
-    ]
+      ['bold', 'italic', 'strike'], // toggled buttons
+      [{ header: 1 }, { header: 2 }], // custom button values
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
+      [{ indent: '-1' }, { indent: '+1' }], // outdent/indent
+      [{ direction: 'rtl' }], // text direction
+      [{ size: ['small', false, 'large', 'huge'] }], // custom dropdown
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+      [{ font: [] }],
+      [{ align: [] }],
+      ['clean'], // remove formatting button
+      ['link', 'image'], // link and image, video
+    ],
+    blotFormatter: {},
   };
 
-  constructor(private loreCollectionService: LoreCollectionService,
-    private route: ActivatedRoute) {
-
-  }
+  constructor(
+    private loreCollectionService: LoreCollectionService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.routeSub = this.route.params.subscribe(params => {
-      console.log(params['id'])
-      this.routeId = params['id']
+    this.routeSub = this.route.params.subscribe((params) => {
+      console.log(params['id']);
+      this.routeId = params['id'];
     });
 
     //this.content = '&lt;p&gt;asdasfs&lt;/p&gt;'
@@ -52,17 +56,17 @@ export class MainTextPageComponent {
     this.routeSub.unsubscribe();
   }
 
-  blurred = false
-  focused = false
+  blurred = false;
+  focused = false;
 
   created(event: Quill) {
     // tslint:disable-next-line:no-console
 
-    console.log('editor-created', event)
+    console.log('editor-created', event);
     // console.log(event);
-    this.loreCollectionService.getLore(this.routeId).subscribe(res => {
-      console.log("response: ", JSON.parse(res.content))
-      this.content = res.content
+    this.loreCollectionService.getLore(this.routeId).subscribe((res) => {
+      console.log('response: ', JSON.parse(res.content));
+      this.content = res.content;
     });
   }
 
@@ -72,28 +76,28 @@ export class MainTextPageComponent {
   }
 
   contentChanged(obj: any) {
-
-    let change = obj.content
+    let change = obj.content;
     console.log('Saving changes...', change);
 
-    this.loreCollectionService.updateLore(this.routeId, JSON.stringify(change)).subscribe(respone => {
-      console.log('Updated lore')
-      //this.pageContent = obj.html
-    })
+    this.loreCollectionService
+      .updateLore(this.routeId, JSON.stringify(change))
+      .subscribe((respone) => {
+        console.log('Updated lore');
+        //this.pageContent = obj.html
+      });
   }
 
   focus($event: any) {
     // tslint:disable-next-line:no-console
-    console.log('focus', $event)
-    this.focused = true
-    this.blurred = false
+    console.log('focus', $event);
+    this.focused = true;
+    this.blurred = false;
   }
 
   blur($event: any) {
     // tslint:disable-next-line:no-console
-    console.log('blur', $event)
-    this.focused = false
-    this.blurred = true
+    console.log('blur', $event);
+    this.focused = false;
+    this.blurred = true;
   }
-
 }
