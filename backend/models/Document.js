@@ -1,7 +1,10 @@
 const mongoose = require('mongoose')
 
 const DocumnetSchema = new mongoose.Schema({
-  documentContent: {
+  name: {
+    type: String,
+  },
+  content: {
     type: String,
   },
   lore: {

@@ -1,0 +1,11 @@
+<quill-editor
+  #editor
+  [modules]="modules"
+  (onFocus)="focus($event)"
+  (onBlur)="blur($event)"
+  (onEditorCreated)="created($event)"
+  (onContentChanged)="contentChanged($event)"
+  format="json"
+  [(ngModel)]="content"
+>
+</quill-editor>

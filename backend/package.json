@@ -1,5 +1,5 @@
 {
-  "name": "myceliumcore",
+  "name": "loremapcore",
   "version": "1.0.0",
   "description": "Core API",
   "main": "server.js",

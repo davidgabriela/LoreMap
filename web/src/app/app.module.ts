@@ -36,6 +36,7 @@ import { MapComponent } from './components/map/map.component';
 import { SafeUrlPipe } from './components/map/safe-url.pipe';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { AuthInterceptor } from './services/auth/auth-interceptor';
+import { DocumentPageComponent } from './components/document-page/document-page.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { AuthInterceptor } from './services/auth/auth-interceptor';
     SafeUrlPipe,
     DocumentTreeComponent,
     DocumentExpoansionPanelComponent,
+    DocumentPageComponent,
   ],
   imports: [
     BrowserModule,

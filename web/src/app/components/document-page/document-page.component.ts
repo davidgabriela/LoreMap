@@ -1,22 +1,18 @@
 import { Component, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
+import { ActivatedRoute, Router } from '@angular/router';
 import Quill from 'quill';
 import BlotFormatter from 'quill-blot-formatter';
-import { Subscription } from 'rxjs';
-import { LoreCollectionService } from 'src/app/services/lore-collection/lore-collection.service';
+import { DocumentsService } from 'src/app/services/documents/documents.service';
 
 Quill.register('modules/blotFormatter', BlotFormatter);
 
 @Component({
-  selector: 'app-main-text-page',
-  templateUrl: './main-text-page.component.html',
-  styleUrls: ['./main-text-page.component.scss'],
+  selector: 'app-document-page',
+  templateUrl: './document-page.component.html',
+  styleUrls: ['./document-page.component.scss'],
 })
-export class MainTextPageComponent {
+export class DocumentPageComponent {
   @ViewChild('editor') editor: any;
-  private routeSub: Subscription = new Subscription();
-  private routeId: string = '';
   content: string = '';
 
   modules = {
@@ -39,47 +35,44 @@ export class MainTextPageComponent {
   };
 
   constructor(
-    private loreCollectionService: LoreCollectionService,
+    private documentsService: DocumentsService,
+    private router: Router,
     private route: ActivatedRoute
   ) {}
-
-  ngOnInit(): void {
-    this.routeSub = this.route.params.subscribe((params) => {
-      console.log(params['id']);
-      this.routeId = params['id'];
-    });
-  }
-
-  ngOnDestroy() {
-    this.routeSub.unsubscribe();
-  }
 
   blurred = false;
   focused = false;
 
-  created(event: Quill) {
-    // tslint:disable-next-line:no-console
-
-    console.log('editor-created', event);
-    // console.log(event);
-    this.loreCollectionService.getLore(this.routeId).subscribe((res) => {
-      this.content = res.content;
+  ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      this.documentsService
+        .getDocumentById(params.loreId, params.documentId)
+        .subscribe((res) => {
+          this.content = res.content;
+        });
     });
   }
 
-  changedEditor(event: EditorChangeContent | EditorChangeSelection) {
+  created(event: Quill) {
     // tslint:disable-next-line:no-console
-    //console.log('editor-change', event)
+    // console.log('DOC PAGE ROUTE: ', this.router.url);
+    // const loreId = this.router.url.split('/')[2];
+    // const documentId = this.router.url.split('/')[4];
+    // this.documentsService
+    //   .getDocumentById(loreId, documentId)
+    //   .subscribe((res) => {
+    //     this.content = res.content;
+    //   });
   }
 
   contentChanged(obj: any) {
+    const documentId = this.router.url.split('/')[4];
     let change = obj.content;
-    console.log('Saving changes...', change);
 
-    this.loreCollectionService
-      .updateLore(this.routeId, JSON.stringify(change))
-      .subscribe((respone) => {
-        console.log('Updated lore');
+    this.documentsService
+      .updateDocument(documentId, JSON.stringify(change))
+      .subscribe((res) => {
+        console.log('Updated document');
         //this.pageContent = obj.html
       });
   }

@@ -9,6 +9,25 @@
         <span>Documents</span>
       </mat-panel-title>
     </mat-expansion-panel-header>
+    <button mat-raised-button color="primary" (click)="openDialog()">
+      Add a new document
+    </button>
+
+    <mat-nav-list>
+      <a
+        mat-list-item
+        *ngFor="let document of documents"
+        [routerLink]="[
+          'lore-collection',
+          document.lore._id,
+          'documents',
+          document._id
+        ]"
+      >
+        {{ document.name }}
+      </a>
+    </mat-nav-list>
+
     <app-document-tree></app-document-tree>
   </mat-expansion-panel>
 </mat-accordion>

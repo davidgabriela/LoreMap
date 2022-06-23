@@ -76,7 +76,7 @@ export class MapComponent implements OnInit {
       const imgUrl = `data:${res.imageFile['mimetype']};base64,${res.imageFile['data']}`;
       const imgBounds: L.LatLngBoundsExpression = [
         [0, 0],
-        // TODO: Igrab from image data
+        // TODO: grab from image data
         [1000, 1500],
       ];
       const overlay = imageOverlay(imgUrl, imgBounds).addTo(map);

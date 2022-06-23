@@ -20,13 +20,41 @@
       <app-document-tree></app-document-tree>
     </mat-list> -->
 
-    <app-document-expoansion-panel></app-document-expoansion-panel>
     <!-- Should be included in mat-nav-list -->
 
     <ng-container [ngSwitch]="sectionName">
-      <mat-nav-list *ngSwitchCase="'{ Lore title }'">
+      <mat-nav-list *ngSwitchCase="'Main Page of { Lore title }'">
+        <mat-divider></mat-divider>
+        <app-document-expoansion-panel></app-document-expoansion-panel>
+        <mat-divider></mat-divider>
+        <a mat-list-item routerLink="/lore-collection">
+          <mat-icon>collections_bookmark</mat-icon>
+          <span>Lore Collection</span>
+        </a>
+        <mat-divider></mat-divider>
+        <a
+          mat-list-item
+          [routerLink]="['lore-collection', loreId, 'map-upload']"
+        >
+          <mat-icon>map</mat-icon>
+          <span>Maps</span>
+        </a>
+        <mat-divider></mat-divider>
+        <a mat-list-item routerLink="/settings">
+          <mat-icon>settings</mat-icon>
+          <span>Account Settings</span>
+        </a>
+        <a mat-list-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Logout</span>
+        </a>
+      </mat-nav-list>
+
+      <mat-nav-list *ngSwitchCase="'{ Document title }'">
         <mat-divider></mat-divider>
 
+        <app-document-expoansion-panel></app-document-expoansion-panel>
+        <mat-divider></mat-divider>
         <a mat-list-item routerLink="/lore-collection">
           <mat-icon>collections_bookmark</mat-icon>
           <span>Lore Collection</span>

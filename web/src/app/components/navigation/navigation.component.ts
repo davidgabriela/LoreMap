@@ -57,14 +57,16 @@ export class NavigationComponent {
       case 'main':
         this.sectionName = 'Main Page of { Lore title }';
         break;
-      case 'map':
+      case 'maps':
         this.sectionName = '{ Map title }';
+        break;
+      case 'documents':
+        this.sectionName = '{ Document title }';
         break;
       default:
         this.sectionName = '[ UNKNOWN ]';
         break;
     }
-    console.log('PAGE NAME:', this.sectionName);
   }
 
   logout() {

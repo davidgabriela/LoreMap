@@ -41,54 +41,12 @@ exports.getDocument = asyncHandler(async (req, res, next) => {
 // @route   POST /api/v1/documents
 // @access  Private
 exports.createDocument = asyncHandler(async (req, res, next) => {
-  // Add owner
-  // req.body.owner = req.user.id;
+  const document = await Document.create(req.body)
 
-  // Add member
-  //req.body.members = req.user.email;
-
-  if (!req.files) {
-    return next(new ErrorResponse(`Please upload a file`, 400))
-  }
-  console.log(req.files)
-
-  const objId = mongoose.Types.ObjectId()
-  req.files['_id'] = objId
-
-  const uploadFile = req.files.imageFile
-
-  if (!uploadFile.mimetype.startsWith('image')) {
-    return next(
-      new ErrorResponse(`Please upload an image file (PNG, JPG/JPEG)`, 400),
-    )
-  }
-
-  //Check filesize
-  if (uploadFile.size > process.env.MAX_FILE_UPLOAD) {
-    return next(
-      new ErrorResponse(
-        `Please upload an image less than ${process.env.MAX_FILE_UPLOAD}`,
-        400,
-      ),
-    )
-  }
-
-  // Create custom filename
-  uploadFile.name = `photo_${objId}${path.parse(uploadFile.name).ext}`
-
-  uploadFile.mv(
-    `${process.env.FILE_UPLOAD_PATH}/${uploadFile.name}`,
-    async (err) => {
-      if (err) {
-        console.error(err)
-        return next(new ErrorResponse(`Problem with file upload`, 500))
-      }
-
-      const document = await Document.create(req.files)
-
-      res.status(201).json({ success: true, data: document })
-    },
-  )
+  res.status(201).json({
+    success: true,
+    data: document,
+  })
 })
 
 // @desc    Update document
