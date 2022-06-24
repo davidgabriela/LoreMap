@@ -1,11 +1,32 @@
 <quill-editor
   #editor
   [modules]="modules"
-  (onFocus)="focus($event)"
-  (onBlur)="blur($event)"
   (onEditorCreated)="created($event)"
   (onContentChanged)="contentChanged($event)"
+  (onSelectionChanged)="selectionChanged($event)"
   format="json"
   [(ngModel)]="content"
+  (contextmenu)="onRightClick($event)"
 >
 </quill-editor>
+
+<!-- an hidden div is created to set the position of appearance of the menu-->
+<div
+  style="visibility: hidden; position: fixed"
+  [style.left.px]="menuTopLeftPosition.x"
+  [style.top.px]="menuTopLeftPosition.y"
+  [matMenuTriggerFor]="rightMenu"
+></div>
+
+<!-- standar material menu -->
+<mat-menu #rightMenu="matMenu">
+  <ng-template matMenuContent>
+    <button mat-menu-item (click)="getSelection()">See selection</button>
+  </ng-template>
+</mat-menu>
+
+<!-- <ng-template #userMenu>
+  <mat-action-list class="context-menu">
+    <button (click)="showSelected()" mat-list-item>Add link</button>
+  </mat-action-list>
+</ng-template> -->

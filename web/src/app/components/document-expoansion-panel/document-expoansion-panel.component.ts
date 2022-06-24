@@ -22,15 +22,11 @@ export class DocumentExpoansionPanelComponent {
     private router: Router,
     private documentsService: DocumentsService,
     private location: Location
-  ) {
-    console.log('location:', location.path());
-  }
+  ) {}
 
   ngOnInit(): void {
-    console.log('location:', this.location.path());
     const loreId = this.location.path().split('/')[2];
     this.documentsService.getDocumentsFromLore(loreId).subscribe((res) => {
-      console.log('Get documents: ', res);
       this.documents = res;
     });
   }

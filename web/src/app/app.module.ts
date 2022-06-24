@@ -37,6 +37,7 @@ import { SafeUrlPipe } from './components/map/safe-url.pipe';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { AuthInterceptor } from './services/auth/auth-interceptor';
 import { DocumentPageComponent } from './components/document-page/document-page.component';
+import { ContextMenuComponent } from './components/context-menu/context-menu.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { DocumentPageComponent } from './components/document-page/document-page.
     DocumentTreeComponent,
     DocumentExpoansionPanelComponent,
     DocumentPageComponent,
+    ContextMenuComponent,
   ],
   imports: [
     BrowserModule,
