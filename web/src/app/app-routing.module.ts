@@ -6,6 +6,7 @@ import { LoreCollectionComponent } from './components/lore-collection/lore-colle
 import { MainTextPageComponent } from './components/main-text-page/main-text-page.component';
 import { MapPageComponent } from './components/map-page/map-page.component';
 import { MapUploadComponent } from './components/map-upload/map-upload.component';
+import { TimelineComponent } from './components/timeline/timeline.component';
 import { AuthGuard } from './services/auth/auth.guard';
 
 const routes: Routes = [
@@ -34,6 +35,11 @@ const routes: Routes = [
   {
     path: 'lore-collection/:loreId/documents/:documentId',
     component: DocumentPageComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'lore-collection/:loreId/timelines/:timelineId',
+    component: TimelineComponent,
     canActivate: [AuthGuard],
   },
 ];
