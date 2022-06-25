@@ -7,6 +7,7 @@ const Lore = require('../models/Lore')
 // Include other resource routers
 const mapRouter = require('./maps')
 const documentRouter = require('./documents')
+const folderRouter = require('./folders')
 
 const {
   getLores,
@@ -21,6 +22,7 @@ const router = express.Router()
 //Re-route into other resource routers
 router.use('/:loreId/maps', mapRouter)
 router.use('/:loreId/documents', documentRouter)
+router.use('/:loreId/folders', folderRouter)
 
 router.route('/').get(advancedResults(Lore), getLores).post(protect, createLore)
 

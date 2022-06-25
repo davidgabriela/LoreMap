@@ -26,6 +26,7 @@
     "ngx-quill": "^16.2.1",
     "quill": "^1.3.7",
     "quill-blot-formatter": "^1.0.5",
+    "quill-delta": "^5.0.0",
     "quill-image-resize-module": "^3.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

@@ -12,6 +12,10 @@ const DocumnetSchema = new mongoose.Schema({
     ref: 'Lore',
     // required: true,
   },
+  parent: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Folder',
+  },
 })
 
 module.exports = mongoose.model('Document', DocumnetSchema)

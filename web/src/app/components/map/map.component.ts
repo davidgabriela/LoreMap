@@ -64,7 +64,7 @@ export class MapComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        const caption = result;
+        const caption = result.name;
         console.log('Caption is:  ', caption);
         this.addPinHere(caption);
       }

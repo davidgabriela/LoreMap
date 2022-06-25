@@ -1,37 +1,11 @@
 import { ArrayDataSource } from '@angular/cdk/collections';
 import { NestedTreeControl } from '@angular/cdk/tree';
-import { Component, OnInit } from '@angular/core';
-
-interface DocumentNode {
-  name: string;
-  children?: DocumentNode[];
-}
-
-const TREE_DATA: DocumentNode[] = [
-  {
-    name: 'Characters',
-    children: [
-      { name: 'Cassia' },
-      { name: 'Zanirith' },
-      { name: 'Paul' },
-      { name: 'Ando' },
-      { name: 'Lo' },
-    ],
-  },
-  {
-    name: 'Regions',
-    children: [
-      {
-        name: 'Satori',
-        children: [{ name: 'Kategawa' }, { name: 'Sookan' }],
-      },
-      {
-        name: 'Lessia',
-        children: [{ name: 'Lubeck' }, { name: 'Boldon' }],
-      },
-    ],
-  },
-];
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Folder } from 'src/app/models/Folder';
+import { FoldersService } from 'src/app/services/folders/folders.service';
+import { Document } from '../../models/Document';
 
 @Component({
   selector: 'app-document-tree',
@@ -39,13 +13,18 @@ const TREE_DATA: DocumentNode[] = [
   styleUrls: ['./document-tree.component.scss'],
 })
 export class DocumentTreeComponent implements OnInit {
-  treeControl = new NestedTreeControl<DocumentNode>((node) => node.children);
-  dataSource = new ArrayDataSource(TREE_DATA);
+  @Input() documents: Document[] = [];
+  folders: Observable<Folder[]> = new Observable<Folder[]>();
 
-  hasChild = (_: number, node: DocumentNode) =>
-    !!node.children && node.children.length > 0;
+  treeControl = new NestedTreeControl<Folder>((node) => node.children);
+  dataSource: ArrayDataSource<Folder> | null = null;
 
-  constructor() {}
+  hasChild = (_: number, node: Folder) => !!node.children;
 
-  ngOnInit(): void {}
+  constructor(private foldersService: FoldersService, private router: Router) {}
+
+  ngOnInit(): void {
+    const loreId = this.router.url.split('/')[2];
+    this.folders = this.foldersService.getFoldersFromLore(loreId);
+  }
 }

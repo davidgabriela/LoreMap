@@ -15,6 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
@@ -25,8 +26,10 @@ import { QuillModule } from 'ngx-quill';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/auth/login/login.component';
+import { ContextMenuComponent } from './components/context-menu/context-menu.component';
 import { DialogBodyComponent } from './components/dialog-body/dialog-body.component';
 import { DocumentExpoansionPanelComponent } from './components/document-expoansion-panel/document-expoansion-panel.component';
+import { DocumentPageComponent } from './components/document-page/document-page.component';
 import { DocumentTreeComponent } from './components/document-tree/document-tree.component';
 import { LoreCollectionComponent } from './components/lore-collection/lore-collection.component';
 import { MainTextPageComponent } from './components/main-text-page/main-text-page.component';
@@ -35,9 +38,9 @@ import { MapUploadComponent } from './components/map-upload/map-upload.component
 import { MapComponent } from './components/map/map.component';
 import { SafeUrlPipe } from './components/map/safe-url.pipe';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { SelectComponent } from './components/select/select.component';
 import { AuthInterceptor } from './services/auth/auth-interceptor';
-import { DocumentPageComponent } from './components/document-page/document-page.component';
-import { ContextMenuComponent } from './components/context-menu/context-menu.component';
+import { TimelineComponent } from './components/timeline/timeline.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +58,8 @@ import { ContextMenuComponent } from './components/context-menu/context-menu.com
     DocumentExpoansionPanelComponent,
     DocumentPageComponent,
     ContextMenuComponent,
+    SelectComponent,
+    TimelineComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,6 +86,7 @@ import { ContextMenuComponent } from './components/context-menu/context-menu.com
     LeafletModule,
     CdkTreeModule,
     MatExpansionModule,
+    MatSelectModule,
   ],
   providers: [
     CookieService,

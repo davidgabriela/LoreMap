@@ -36,10 +36,7 @@ export class LoreCollectionComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        const lore = {
-          title: result,
-          content: '',
-        };
+        const lore = { title: result, content: '' };
         this.addLore(lore);
       }
     });

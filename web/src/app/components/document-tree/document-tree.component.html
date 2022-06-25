@@ -1,9 +1,28 @@
-<cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
+<!-- <mat-nav-list>
+  <a
+    mat-list-item
+    *ngFor="let document of documents"
+    [routerLink]="[
+      'lore-collection',
+      document.lore._id,
+      'documents',
+      document._id
+    ]"
+  >
+    {{ document.name }}
+  </a>
+</mat-nav-list> -->
+
+<cdk-tree [dataSource]="folders" [treeControl]="treeControl">
   <!-- This is the tree node template for leaf nodes -->
   <cdk-nested-tree-node *cdkTreeNodeDef="let node" class="example-tree-node">
     <!-- use a disabled button to provide padding for tree leaf -->
-    <button mat-icon-button disabled></button>
-    {{ node.name }}
+    <button
+      mat-list-item
+      [routerLink]="['lore-collection', node.lore, 'documents', node._id]"
+    >
+      {{ node.name }}
+    </button>
   </cdk-nested-tree-node>
   <!-- This is the tree node template for expandable nodes -->
   <cdk-nested-tree-node
@@ -25,7 +44,3 @@
     </div>
   </cdk-nested-tree-node>
 </cdk-tree>
-
-<!-- Copyright 2022 Google LLC. All Rights Reserved.
-    Use of this source code is governed by an MIT-style license that
-    can be found in the LICENSE file at https://angular.io/license -->

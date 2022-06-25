@@ -1,13 +1,24 @@
 <h1 mat-dialog-title>{{ dialogTitle }}</h1>
 <div mat-dialog-content>
-  <mat-form-field appearance="fill">
+  <mat-form-field *ngIf="dialogLabel.length > 0" appearance="fill">
     <mat-label>{{ dialogLabel }}</mat-label>
-    <input matInput autocomplete="off" [(ngModel)]="data.name" />
+    <input matInput autocomplete="off" [(ngModel)]="formData.name" />
   </mat-form-field>
+  <app-select
+    (newItemEvent)="addItem($event)"
+    *ngIf="selectData.length > 0"
+    [selectItems]="selectData"
+    [selectHeader]="selectHeader"
+  ></app-select>
 </div>
 <div mat-dialog-actions align="start">
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [mat-dialog-close]="data.name" cdkFocusInitial>
+  <button
+    mat-button
+    [mat-dialog-close]="formData"
+    cdkFocusInitial
+    (click)="getFormData()"
+  >
     {{ dialogSubmit }}
   </button>
 </div>

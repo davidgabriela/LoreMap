@@ -3,4 +3,5 @@ export interface Document {
   name: string;
   content: string;
   lore: any;
+  parent?: string;
 }

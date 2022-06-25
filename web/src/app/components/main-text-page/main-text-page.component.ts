@@ -1,10 +1,17 @@
-import { Component, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
+import { Overlay } from '@angular/cdk/overlay';
+import { Location } from '@angular/common';
+import { Component, ViewChild, ViewContainerRef } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatMenuTrigger } from '@angular/material/menu';
+import { ActivatedRoute, Router } from '@angular/router';
 import Quill from 'quill';
 import BlotFormatter from 'quill-blot-formatter';
-import { Subscription } from 'rxjs';
+import { Document } from 'src/app/models/Document';
+import { DocumentsService } from 'src/app/services/documents/documents.service';
 import { LoreCollectionService } from 'src/app/services/lore-collection/lore-collection.service';
+import { DialogBodyComponent } from '../dialog-body/dialog-body.component';
+// @ts-ignore
+import Delta from 'quill-delta';
 
 Quill.register('modules/blotFormatter', BlotFormatter);
 
@@ -15,9 +22,12 @@ Quill.register('modules/blotFormatter', BlotFormatter);
 })
 export class MainTextPageComponent {
   @ViewChild('editor') editor: any;
-  private routeSub: Subscription = new Subscription();
-  private routeId: string = '';
+  @ViewChild(MatMenuTrigger, { static: true })
   content: string = '';
+  documents: Document[] = [];
+
+  menuTopLeftPosition = { x: '0', y: '0' };
+  matMenuTrigger!: MatMenuTrigger;
 
   modules = {
     toolbar: [
@@ -33,68 +43,100 @@ export class MainTextPageComponent {
       [{ font: [] }],
       [{ align: [] }],
       ['clean'], // remove formatting button
-      ['link', 'image'], // link and image, video
+      ['link', 'image', 'video'], // link and image, video
     ],
     blotFormatter: {},
   };
 
   constructor(
     private loreCollectionService: LoreCollectionService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private documentsService: DocumentsService,
+    private router: Router,
+    public overlay: Overlay,
+    public viewContainerRef: ViewContainerRef,
+    private location: Location,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    this.routeSub = this.route.params.subscribe((params) => {
-      console.log(params['id']);
-      this.routeId = params['id'];
-    });
-  }
-
-  ngOnDestroy() {
-    this.routeSub.unsubscribe();
-  }
-
-  blurred = false;
-  focused = false;
-
-  created(event: Quill) {
-    // tslint:disable-next-line:no-console
-
-    console.log('editor-created', event);
-    // console.log(event);
-    this.loreCollectionService.getLore(this.routeId).subscribe((res) => {
+    const loreId = this.location.path().split('/')[2];
+    this.loreCollectionService.getLore(loreId).subscribe((res) => {
       this.content = res.content;
     });
-  }
-
-  changedEditor(event: EditorChangeContent | EditorChangeSelection) {
-    // tslint:disable-next-line:no-console
-    //console.log('editor-change', event)
+    console.log('lcoation path', loreId);
+    this.documentsService.getDocumentsFromLore(loreId).subscribe((res) => {
+      this.documents = res;
+    });
   }
 
   contentChanged(obj: any) {
     let change = obj.content;
     console.log('Saving changes...', change);
+    const loreId = this.location.path().split('/')[2];
 
     this.loreCollectionService
-      .updateLore(this.routeId, JSON.stringify(change))
+      .updateLore(loreId, JSON.stringify(change))
       .subscribe((respone) => {
         console.log('Updated lore');
-        //this.pageContent = obj.html
       });
   }
 
-  focus($event: any) {
-    // tslint:disable-next-line:no-console
-    console.log('focus', $event);
-    this.focused = true;
-    this.blurred = false;
+  getSelection() {
+    var selection = this.editor.quillEditor.getSelection();
+    var selectedContent = this.editor.quillEditor.getContents(
+      selection.index,
+      selection.length
+    );
+    console.log('selection', selection);
+    console.log('selectedContent', selectedContent);
+    var tempContainer = document.createElement('div');
+    var tempQuill = new Quill(tempContainer);
+    tempQuill.setContents(selectedContent);
+    this.openDialog(selection);
   }
 
-  blur($event: any) {
-    // tslint:disable-next-line:no-console
-    console.log('blur', $event);
-    this.focused = false;
-    this.blurred = true;
+  openDialog(selection: any): void {
+    const dialogRef = this.dialog.open(DialogBodyComponent, {
+      width: '500px',
+      data: {
+        dialogTitle: 'Add a reference',
+        dialogSubmit: 'Create reference',
+        selectData: this.documents,
+        selectHeader: 'Select document',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.addReference(result.selection._id, selection);
+    });
+  }
+
+  addReference(refId: string, selection: any) {
+    const loreId = this.router.url.split('/')[2];
+    const referenceLink = `lore-collection/${loreId}/documents/${refId}`;
+    let editorContent = this.editor.quillEditor.getContents();
+
+    console.log(referenceLink);
+    console.log('editor contents', editorContent);
+
+    this.editor.quillEditor.updateContents(
+      new Delta()
+        .retain(selection.index)
+        .retain(selection.length, { link: referenceLink })
+    );
+
+    console.log('updatE?', this.editor.quillEditor.getContents());
+  }
+
+  onRightClick(event: MouseEvent) {
+    event.preventDefault();
+
+    // we record the mouse position in our object
+    this.menuTopLeftPosition.x = event.clientX + 'px';
+    this.menuTopLeftPosition.y = event.clientY + 'px';
+
+    if (this.editor.quillEditor.getSelection().length > 0)
+      this.matMenuTrigger.openMenu();
   }
 }

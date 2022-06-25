@@ -1,0 +1,9 @@
+<h4>{{ selectHeader }}</h4>
+<mat-form-field appearance="fill">
+  <mat-label>Select</mat-label>
+  <mat-select [(ngModel)]="selectedItem" (selectionChange)="emitItem($event)">
+    <mat-option *ngFor="let item of selectItems" [value]="item">{{
+      item.name
+    }}</mat-option>
+  </mat-select>
+</mat-form-field>

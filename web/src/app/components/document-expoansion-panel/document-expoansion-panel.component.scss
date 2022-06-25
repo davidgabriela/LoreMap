@@ -7,3 +7,15 @@ mat-icon {
 .mat-expansion-panel-header {
   padding: 0 16px;
 }
+
+.action-bar {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  gap: 10px;
+}
+
+.action-bar button{
+  align-items: flex-start;
+}

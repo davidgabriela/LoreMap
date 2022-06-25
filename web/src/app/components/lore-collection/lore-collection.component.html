@@ -13,14 +13,12 @@
           >Created at: {{ lore.createdAt | date: "short" }}</mat-card-subtitle
         >
         <mat-card-actions>
-          <a mat-button color="primary" [routerLink]="[lore._id, 'main']">
-            <mat-icon>edit</mat-icon>
-            WRITE
-          </a>
-          <a mat-button color="primary" (click)="removeLore(lore._id)">
-            <mat-icon>delete</mat-icon>
-            DELETE
-          </a>
+          <a mat-button color="primary" [routerLink]="[lore._id, 'main']"
+            ><mat-icon>edit</mat-icon>WRITE</a
+          >
+          <a mat-button color="primary" (click)="removeLore(lore._id)"
+            ><mat-icon>delete</mat-icon>DELETE</a
+          >
         </mat-card-actions>
       </mat-card>
     </ng-container>
