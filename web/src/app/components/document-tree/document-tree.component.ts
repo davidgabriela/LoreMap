@@ -26,5 +26,6 @@ export class DocumentTreeComponent implements OnInit {
   ngOnInit(): void {
     const loreId = this.router.url.split('/')[2];
     this.folders = this.foldersService.getFoldersFromLore(loreId);
+    this.folders.subscribe((res) => console.log(res));
   }
 }

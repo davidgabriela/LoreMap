@@ -27,7 +27,13 @@ router
 
 router
   .route('/:id')
-  .get(getFolder)
+  .get(
+    advancedResults(Folder, {
+      path: 'children',
+      select: 'name lore parent',
+    }),
+    getFolder,
+  )
   .put(protect, updateFolder)
   .delete(protect, deleteFolder)
 

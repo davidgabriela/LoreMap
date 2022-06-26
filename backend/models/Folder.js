@@ -17,6 +17,11 @@ const FolderSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   },
 )
+//Cascade delete documents when a folder is deleted
+FolderSchema.pre('remove', async function (next) {
+  await this.model('Document').deleteMany({ parent: this._id })
+  next()
+})
 
 // Reverse populate with virtuals
 FolderSchema.virtual('children', {

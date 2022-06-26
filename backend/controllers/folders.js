@@ -10,7 +10,10 @@ const mongoose = require('mongoose')
 // @access  Public
 exports.getFolders = asyncHandler(async (req, res, next) => {
   if (req.params.loreId) {
-    const folders = await Folder.find({ lore: req.params.loreId })
+    const folders = await Folder.find({ lore: req.params.loreId }).populate({
+      path: 'children',
+      select: 'name lore parent',
+    })
     return res.status(200).json({
       success: true,
       count: folders.length,
