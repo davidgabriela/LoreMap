@@ -21,7 +21,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-import { NgxGraphModule } from '@swimlane/ngx-graph';
 import { CookieService } from 'ngx-cookie-service';
 import { QuillModule } from 'ngx-quill';
 import { ButtonModule } from 'primeng/button';
@@ -35,7 +34,6 @@ import { DialogBodyComponent } from './components/dialog-body/dialog-body.compon
 import { DocumentExpoansionPanelComponent } from './components/document-expoansion-panel/document-expoansion-panel.component';
 import { DocumentPageComponent } from './components/document-page/document-page.component';
 import { DocumentTreeComponent } from './components/document-tree/document-tree.component';
-import { GraphComponent } from './components/graph/graph.component';
 import { LoreCollectionComponent } from './components/lore-collection/lore-collection.component';
 import { MainTextPageComponent } from './components/main-text-page/main-text-page.component';
 import { MapPageComponent } from './components/map-page/map-page.component';
@@ -67,7 +65,6 @@ import { AuthInterceptor } from './services/auth/auth-interceptor';
     SelectComponent,
     TimelineComponent,
     TimelineCollectionComponent,
-    GraphComponent,
   ],
   imports: [
     BrowserModule,
@@ -98,7 +95,6 @@ import { AuthInterceptor } from './services/auth/auth-interceptor';
     TimelineModule,
     ButtonModule,
     CardModule,
-    NgxGraphModule,
   ],
   providers: [
     CookieService,

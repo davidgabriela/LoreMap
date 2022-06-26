@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/auth/login/login.component';
 import { DocumentPageComponent } from './components/document-page/document-page.component';
-import { GraphComponent } from './components/graph/graph.component';
 import { LoreCollectionComponent } from './components/lore-collection/lore-collection.component';
 import { MainTextPageComponent } from './components/main-text-page/main-text-page.component';
 import { MapPageComponent } from './components/map-page/map-page.component';
@@ -47,11 +46,6 @@ const routes: Routes = [
   {
     path: 'lore-collection/:loreId/timelines/:timelineId',
     component: TimelineComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'lore-collection/:loreId/graph',
-    component: GraphComponent,
     canActivate: [AuthGuard],
   },
 ];
