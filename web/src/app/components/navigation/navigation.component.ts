@@ -63,6 +63,9 @@ export class NavigationComponent {
       case 'documents':
         this.sectionName = '{ Document title }';
         break;
+      case 'timelines':
+        this.sectionName = 'Timelines';
+        break;
       default:
         this.sectionName = '[ UNKNOWN ]';
         break;

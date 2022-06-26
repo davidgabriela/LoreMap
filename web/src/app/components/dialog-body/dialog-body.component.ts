@@ -17,7 +17,8 @@ export class DialogBodyComponent {
   dialogSubmit: string = '';
   selectData: any = [];
   selectHeader: string = '';
-  formData: any = { name: '' };
+  textAreaLabel: string = '';
+  formData: any = { name: '', selection: '' };
 
   @ViewChild(MatInput)
   input: HTMLElement | undefined;
@@ -44,6 +45,9 @@ export class DialogBodyComponent {
     console.log(this.formData);
     this.dialogTitle = this.data.dialogTitle;
     this.dialogSubmit = this.data.dialogSubmit;
+    if ('textAreaLabel' in this.data) {
+      this.textAreaLabel = this.data.textAreaLabel;
+    }
     if ('dialogLabel' in this.data) {
       this.dialogLabel = this.data.dialogLabel;
     }

@@ -23,6 +23,8 @@ connectDB()
 // Route files
 const lores = require('./routes/lores')
 const maps = require('./routes/maps')
+const timelines = require('./routes/timelines')
+const events = require('./routes/events')
 const documents = require('./routes/documents')
 const folders = require('./routes/folders')
 const workspaces = require('./routes/workspaces')
@@ -74,11 +76,27 @@ app.use(express.static(path.join(__dirname, 'public')))
 // Mount routers
 app.use('/api/v1/lore-collection', lores)
 app.use('/api/v1/maps', maps)
+app.use('/api/v1/timelines', timelines)
+app.use('/api/v1/events', events)
 app.use('/api/v1/documents', documents)
 app.use('/api/v1/folders', folders)
 app.use('/api/v1/workspaces', workspaces)
 app.use('/api/v1/auth', auth)
 app.use('/api/v1/user', user)
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../web/dist/web')))
+
+  app.get('/*', (req, res) =>
+    res.sendFile(
+      path.resolve(__dirname, '../web', 'dist', 'web', 'index.html'),
+    ),
+  )
+} else {
+  app.get('/', (req, res) => {
+    res.send('API is running....')
+  })
+}
 
 app.use(errorHandler)
 

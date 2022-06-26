@@ -16,14 +16,15 @@ import { DialogBodyComponent } from '../dialog-body/dialog-body.component';
 export class DocumentExpoansionPanelComponent {
   loreId: string = '';
   newDocumentData: any = {
-    dialogTitle: 'Enter a name for your new document',
+    dialogTitle: 'Add a new document',
+    dialogLabel: 'Enter document name',
     dialogSubmit: 'Add new document',
     selectData: [],
     selectHeader: 'Select category',
   };
   newFolderData: any = {
-    dialogTitle: 'Enter a name for your new folder',
-    dialogLabel: 'Enter name',
+    dialogTitle: 'Add a new folder',
+    dialogLabel: 'Enter folder name',
     dialogSubmit: 'Create new folder',
   };
 

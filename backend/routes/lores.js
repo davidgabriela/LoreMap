@@ -8,6 +8,7 @@ const Lore = require('../models/Lore')
 const mapRouter = require('./maps')
 const documentRouter = require('./documents')
 const folderRouter = require('./folders')
+const timelineRouter = require('./timelines')
 
 const {
   getLores,
@@ -23,6 +24,7 @@ const router = express.Router()
 router.use('/:loreId/maps', mapRouter)
 router.use('/:loreId/documents', documentRouter)
 router.use('/:loreId/folders', folderRouter)
+router.use('/:loreId/timelines', timelineRouter)
 
 router.route('/').get(advancedResults(Lore), getLores).post(protect, createLore)
 

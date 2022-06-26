@@ -9,15 +9,16 @@ const mongoose = require('mongoose')
 // @route   GET /api/v1/lore-collection/:id/documents
 // @access  Public
 exports.getDocuments = asyncHandler(async (req, res, next) => {
-  let query
   if (req.params.loreId) {
-    query = Document.find({ lore: req.params.loreId })
+    const documents = await Document.find({ lore: req.params.loreId })
+    return res.status(200).json({
+      success: true,
+      count: documents.length,
+      data: documents,
+    })
   } else {
-    query = Document.find()
+    res.status(200).json(res.advancedResults)
   }
-  const documents = await query
-
-  res.status(200).json(res.advancedResults)
 })
 
 // @desc    Get a single document

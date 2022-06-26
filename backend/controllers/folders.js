@@ -9,15 +9,16 @@ const mongoose = require('mongoose')
 // @route   GET /api/v1/lore-collection/:id/folders
 // @access  Public
 exports.getFolders = asyncHandler(async (req, res, next) => {
-  let query
   if (req.params.loreId) {
-    query = Folder.find({ lore: req.params.loreId })
+    const folders = await Folder.find({ lore: req.params.loreId })
+    return res.status(200).json({
+      success: true,
+      count: folders.length,
+      data: folders,
+    })
   } else {
-    query = Folder.find()
+    res.status(200).json(res.advancedResults)
   }
-  const folders = await query
-
-  res.status(200).json(res.advancedResults)
 })
 
 // @desc    Get a single folder

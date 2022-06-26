@@ -22,11 +22,12 @@ Quill.register('modules/blotFormatter', BlotFormatter);
 })
 export class MainTextPageComponent {
   @ViewChild('editor') editor: any;
-  @ViewChild(MatMenuTrigger, { static: true })
+
   content: string = '';
   documents: Document[] = [];
 
   menuTopLeftPosition = { x: '0', y: '0' };
+  @ViewChild(MatMenuTrigger, { static: true })
   matMenuTrigger!: MatMenuTrigger;
 
   modules = {
@@ -50,9 +51,9 @@ export class MainTextPageComponent {
 
   constructor(
     private loreCollectionService: LoreCollectionService,
-    private route: ActivatedRoute,
     private documentsService: DocumentsService,
     private router: Router,
+    private route: ActivatedRoute,
     public overlay: Overlay,
     public viewContainerRef: ViewContainerRef,
     private location: Location,
@@ -64,21 +65,19 @@ export class MainTextPageComponent {
     this.loreCollectionService.getLore(loreId).subscribe((res) => {
       this.content = res.content;
     });
-    console.log('lcoation path', loreId);
     this.documentsService.getDocumentsFromLore(loreId).subscribe((res) => {
       this.documents = res;
     });
   }
 
   contentChanged(obj: any) {
-    let change = obj.content;
-    console.log('Saving changes...', change);
     const loreId = this.location.path().split('/')[2];
+    let change = obj.content;
 
     this.loreCollectionService
       .updateLore(loreId, JSON.stringify(change))
       .subscribe((respone) => {
-        console.log('Updated lore');
+        console.log('UPDATED MAIN');
       });
   }
 

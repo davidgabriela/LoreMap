@@ -8,8 +8,6 @@ import { Document } from 'src/app/models/Document';
   providedIn: 'root',
 })
 export class DocumentsService {
-  private loresUrl = 'http://localhost:5000/api/v1/documents';
-
   constructor(private http: HttpClient) {}
 
   getDocumentsFromLore(loreId: string): Observable<Document[]> {
@@ -30,7 +28,6 @@ export class DocumentsService {
     const body = {
       content: htmlContent,
     };
-
     return this.http.put(updateUrl, body);
   }
 }

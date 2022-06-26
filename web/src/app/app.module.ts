@@ -23,6 +23,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { CookieService } from 'ngx-cookie-service';
 import { QuillModule } from 'ngx-quill';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { TimelineModule } from 'primeng/timeline';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/auth/login/login.component';
@@ -39,8 +42,10 @@ import { MapComponent } from './components/map/map.component';
 import { SafeUrlPipe } from './components/map/safe-url.pipe';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { SelectComponent } from './components/select/select.component';
-import { AuthInterceptor } from './services/auth/auth-interceptor';
 import { TimelineComponent } from './components/timeline/timeline.component';
+import { AuthInterceptor } from './services/auth/auth-interceptor';
+import { TimelineCollectionComponent } from './components/timeline-collection/timeline-collection.component';
+import { GraphComponent } from './components/graph/graph.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +65,8 @@ import { TimelineComponent } from './components/timeline/timeline.component';
     ContextMenuComponent,
     SelectComponent,
     TimelineComponent,
+    TimelineCollectionComponent,
+    GraphComponent,
   ],
   imports: [
     BrowserModule,
@@ -87,6 +94,9 @@ import { TimelineComponent } from './components/timeline/timeline.component';
     CdkTreeModule,
     MatExpansionModule,
     MatSelectModule,
+    TimelineModule,
+    ButtonModule,
+    CardModule,
   ],
   providers: [
     CookieService,

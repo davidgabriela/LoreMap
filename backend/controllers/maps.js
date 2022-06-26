@@ -9,15 +9,16 @@ const mongoose = require('mongoose')
 // @route   GET /api/v1/lore-collection/:id/maps
 // @access  Public
 exports.getMaps = asyncHandler(async (req, res, next) => {
-  let query
   if (req.params.loreId) {
-    query = Map.find({ lore: req.params.loreId })
+    const maps = await Map.find({ lore: req.params.loreId })
+    return res.status(200).json({
+      success: true,
+      count: maps.length,
+      data: maps,
+    })
   } else {
-    query = Map.find()
+    res.status(200).json(res.advancedResults)
   }
-  const maps = await query
-
-  res.status(200).json(res.advancedResults)
 })
 
 // @desc    Get a single map

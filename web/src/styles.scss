@@ -1,7 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+$custom-typography: mat.define-typography-config(
+    $font-family: "Segoe UI",
+  );
+
+@include mat.core($custom-typography);;
+
 @import '~quill/dist/quill.bubble.css';
 @import '~quill/dist/quill.snow.css';
 @import "~leaflet/dist/leaflet.css";
+
+@import "../node_modules/primeng/resources/themes/mdc-light-indigo/theme.css";
+@import "../node_modules/primeng/resources/primeng.min.css";
+@import "../node_modules/primeicons/primeicons.css";
+
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
@@ -10,24 +23,4 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   border-radius: 5px 5px 0 0;
   background-color: #f5f5f5;
 }
-
-// .ql-toolbar.ql-snow button.ql-active .ql-stroke{
-//   stroke: #495ed5;
-// }
-
-// .ql-toolbar.ql-snow button:hover .ql-stroke {
-//   stroke: #3f51b5;
-// }
-
-// .ql-toolbar.ql-snow button.ql-active .ql-fill {
-//   fill: #495ed5;
-// }
-
-// .ql-toolbar.ql-snow utton:hover .ql-fill {
-//   fill: #3f51b5;
-// }
-
-// .ql-snow .ql-picker-options .ql-picker-item {
-//   color: rgba(0, 0, 0, .87);
-// }
 

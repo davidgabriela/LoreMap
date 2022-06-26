@@ -67,7 +67,6 @@ export class DocumentPageComponent {
         });
     });
     const loreId = this.location.path().split('/')[2];
-    console.log('lcoation path', loreId);
     this.documentsService.getDocumentsFromLore(loreId).subscribe((res) => {
       this.documents = res;
     });
@@ -117,16 +116,11 @@ export class DocumentPageComponent {
     const referenceLink = `lore-collection/${loreId}/documents/${refId}`;
     let editorContent = this.editor.quillEditor.getContents();
 
-    console.log(referenceLink);
-    console.log('editor contents', editorContent);
-
     this.editor.quillEditor.updateContents(
       new Delta()
         .retain(selection.index)
         .retain(selection.length, { link: referenceLink })
     );
-
-    console.log('updatE?', this.editor.quillEditor.getContents());
   }
 
   onRightClick(event: MouseEvent) {

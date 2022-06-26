@@ -4,6 +4,10 @@
     <mat-label>{{ dialogLabel }}</mat-label>
     <input matInput autocomplete="off" [(ngModel)]="formData.name" />
   </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>{{ textAreaLabel }}</mat-label>
+    <textarea [(ngModel)]="formData.text" matInput></textarea>
+  </mat-form-field>
   <app-select
     (newItemEvent)="addItem($event)"
     *ngIf="selectData.length > 0"

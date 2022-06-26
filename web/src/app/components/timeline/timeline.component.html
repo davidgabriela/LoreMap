@@ -1,1 +1,37 @@
-<p>timeline works!</p>
+<div *ngIf="!(events$ | async)" class="empty-timeline">
+  <h2>Looks like you don't have any events yet.</h2>
+  <button mat-raised-button color="primary" (click)="openDialog()">
+    <mat-icon>add</mat-icon>Add your first event to the timeline
+  </button>
+</div>
+<div *ngIf="events$ | async as eventsData" class="card timeline-container">
+  <div class="action-bar">
+    <button mat-raised-button color="primary" (click)="openDialog()">
+      <mat-icon>add</mat-icon>Add an event
+    </button>
+  </div>
+  <p-timeline
+    [value]="eventsData"
+    align="alternate"
+    styleClass="customized-timeline"
+  >
+    <ng-template pTemplate="marker" let-event>
+      <span
+        class="custom-marker p-shadow-2"
+        [style.backgroundColor]="event.color"
+      >
+        <mat-icon>hourglass_empty</mat-icon>
+      </span>
+    </ng-template>
+    <ng-template pTemplate="content" let-event>
+      <p-card [header]="event.title" [subheader]="event.date">
+        <p>
+          {{ event.information }}
+        </p>
+        <button mat-icon-button (click)="deleteEvent(event._id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </p-card>
+    </ng-template>
+  </p-timeline>
+</div>

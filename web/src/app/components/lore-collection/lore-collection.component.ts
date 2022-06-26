@@ -13,7 +13,6 @@ import { DialogBodyComponent } from '../dialog-body/dialog-body.component';
 export class LoreCollectionComponent {
   loreCollection: Observable<Lore[]> = new Observable();
   name: string = '';
-  loresCount: number = 17;
 
   constructor(
     public dialog: MatDialog,

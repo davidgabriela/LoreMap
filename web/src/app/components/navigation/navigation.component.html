@@ -11,17 +11,6 @@
       <h2>LoreMap</h2>
     </mat-toolbar>
 
-    <!-- Should be included in mat-nav-list -->
-    <!-- <mat-list>
-      <mat-list-item>
-        <mat-icon>description</mat-icon>
-        <span>Documents</span>
-      </mat-list-item>
-      <app-document-tree></app-document-tree>
-    </mat-list> -->
-
-    <!-- Should be included in mat-nav-list -->
-
     <ng-container [ngSwitch]="sectionName">
       <mat-nav-list *ngSwitchCase="'Main Page of { Lore title }'">
         <mat-divider></mat-divider>
@@ -38,6 +27,20 @@
         >
           <mat-icon>map</mat-icon>
           <span>Maps</span>
+        </a>
+        <a
+          mat-list-item
+          [routerLink]="['lore-collection', loreId, 'timelines']"
+        >
+          <mat-icon>timeline</mat-icon>
+          <span>Timelines</span>
+        </a>
+        <a
+          mat-list-item
+          [routerLink]="['lore-collection', loreId, 'timelines']"
+        >
+          <mat-icon>timeline</mat-icon>
+          <span>Character relationship graph</span>
         </a>
         <mat-divider></mat-divider>
         <a mat-list-item routerLink="/settings">
@@ -66,6 +69,48 @@
         >
           <mat-icon>map</mat-icon>
           <span>Maps</span>
+        </a>
+        <a
+          mat-list-item
+          [routerLink]="['lore-collection', loreId, 'timelines']"
+        >
+          <mat-icon>timeline</mat-icon>
+          <span>Timelines</span>
+        </a>
+        <mat-divider></mat-divider>
+        <a mat-list-item routerLink="/settings">
+          <mat-icon>settings</mat-icon>
+          <span>Account Settings</span>
+        </a>
+        <a mat-list-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Logout</span>
+        </a>
+      </mat-nav-list>
+
+      <mat-nav-list *ngSwitchCase="'Timelines'">
+        <mat-divider></mat-divider>
+
+        <app-document-expoansion-panel></app-document-expoansion-panel>
+        <mat-divider></mat-divider>
+        <a mat-list-item routerLink="/lore-collection">
+          <mat-icon>collections_bookmark</mat-icon>
+          <span>Lore Collection</span>
+        </a>
+        <mat-divider></mat-divider>
+        <a
+          mat-list-item
+          [routerLink]="['lore-collection', loreId, 'map-upload']"
+        >
+          <mat-icon>map</mat-icon>
+          <span>Maps</span>
+        </a>
+        <a
+          mat-list-item
+          [routerLink]="['lore-collection', loreId, 'timelines']"
+        >
+          <mat-icon>timeline</mat-icon>
+          <span>Timelines</span>
         </a>
         <mat-divider></mat-divider>
         <a mat-list-item routerLink="/settings">
