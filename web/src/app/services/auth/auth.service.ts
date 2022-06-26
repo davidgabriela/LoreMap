@@ -10,7 +10,7 @@ import { User } from 'src/app/models/User';
 })
 export class AuthService {
   private isAuthenticated = false;
-  private authUrl = 'http://lore-map.herokuapp.com/api/v1/auth';
+  private authUrl = 'https://lore-map.herokuapp.com/api/v1/auth';
   private token: string = '';
   private authStatusListener = new Subject<boolean>();
 

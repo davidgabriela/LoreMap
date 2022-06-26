@@ -9,7 +9,7 @@ export class MapsService {
   constructor(private http: HttpClient) {}
 
   getMap(loreId: string, mapId: string): Observable<Map> {
-    const mapsUrl = `http://lore-map.herokuapp.com/api/v1/lore-collection/${loreId}/maps/${mapId}`;
+    const mapsUrl = `https://lore-map.herokuapp.com/api/v1/lore-collection/${loreId}/maps/${mapId}`;
     return this.http.get(mapsUrl).pipe(map((data: any) => data.data));
   }
   updateMap(mapId: string, data: any) {

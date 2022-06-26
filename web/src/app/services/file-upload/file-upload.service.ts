@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class FileUploadService {
-  private baseUrl = 'http://lore-map.herokuapp.com/api/v1/maps';
+  private baseUrl = 'https://lore-map.herokuapp.com/api/v1/maps';
 
   constructor(private http: HttpClient) {}
 
