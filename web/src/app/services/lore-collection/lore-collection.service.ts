@@ -18,7 +18,7 @@ export class LoreCollectionService {
   ) {}
 
   user: User | null = null;
-  private loresUrl = 'http://localhost:5000/api/v1/lore-collection';
+  private loresUrl = 'http://lore-map.herokuapp.com/api/v1/lore-collection';
 
   getLores(): Observable<Lore[]> {
     return this.authService

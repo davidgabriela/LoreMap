@@ -10,11 +10,11 @@ export class FoldersService {
   constructor(private http: HttpClient) {}
 
   getFoldersFromLore(loreId: string): Observable<Folder[]> {
-    const documentsUrl = `http://localhost:5000/api/v1/lore-collection/${loreId}/folders/`;
+    const documentsUrl = `http://lore-map.herokuapp.com/api/v1/lore-collection/${loreId}/folders/`;
     return this.http.get(documentsUrl).pipe(map((data: any) => data.data));
   }
   createFolder(folder: Folder) {
-    const createUrl = 'http://localhost:5000/api/v1/folders';
+    const createUrl = 'http://lore-map.herokuapp.com/api/v1/folders';
     return this.http.post(createUrl, folder);
   }
 }
