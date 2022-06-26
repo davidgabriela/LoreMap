@@ -49,7 +49,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(mongoSanitize())
 
 // Set security headers
-app.use(helmet())
+// app.use(helmet())
 
 // Prevent cross-site scripting attacks
 app.use(xss())
