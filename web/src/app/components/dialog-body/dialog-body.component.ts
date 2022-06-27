@@ -18,7 +18,7 @@ export class DialogBodyComponent {
   selectData: any = [];
   selectHeader: string = '';
   textAreaLabel: string = '';
-  formData: any = { name: '', selection: '' };
+  formData: any = { name: '' };
 
   @ViewChild(MatInput)
   input: HTMLElement | undefined;

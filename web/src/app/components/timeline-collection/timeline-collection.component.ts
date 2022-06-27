@@ -38,7 +38,7 @@ export class TimelineCollectionComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         const loreId = this.location.path().split('/')[2];
-        const timeline = { name: result, lore: loreId };
+        const timeline = { name: result.name, lore: loreId };
         this.addTimeline(timeline);
       }
     });
