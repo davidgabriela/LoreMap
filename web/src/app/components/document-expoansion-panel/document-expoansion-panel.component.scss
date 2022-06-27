@@ -19,3 +19,21 @@ mat-icon {
 .action-bar button{
   align-items: flex-start;
 }
+
+.mat-button, .mat-list-item {
+  font-size: 16px;
+}
+
+#main-doc {
+  display: flex;
+  font-weight: 600;
+  color: #3f51b5;
+}
+
+.mat-expansion-panel {
+  box-shadow: none;
+}
+
+.expansion-container{
+  margin-bottom: 10px;
+}

@@ -9,17 +9,23 @@
         <span>Documents</span>
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <div class="action-bar">
-      <button mat-button color="primary" (click)="openDialogFolder()">
-        <mat-icon>create_new_folder</mat-icon> New folder
+    <div class="expansion-container">
+      <div class="action-bar">
+        <button mat-button color="primary" (click)="openDialogFolder()">
+          <mat-icon>create_new_folder</mat-icon> New folder
+        </button>
+        <button mat-button color="primary" (click)="openDialogDocument()">
+          <mat-icon>note_add</mat-icon> New document
+        </button>
+      </div>
+      <button
+        id="main-doc"
+        mat-list-item
+        [routerLink]="['lore-collection', loreId, 'main']"
+      >
+        Main document
       </button>
-      <button mat-button color="primary" (click)="openDialogDocument()">
-        <mat-icon>note_add</mat-icon> New document
-      </button>
+      <app-document-tree [documents]="documents"></app-document-tree>
     </div>
-    <button mat-list-item [routerLink]="['lore-collection', loreId, 'main']">
-      Main document
-    </button>
-    <app-document-tree [documents]="documents"></app-document-tree>
   </mat-expansion-panel>
 </mat-accordion>

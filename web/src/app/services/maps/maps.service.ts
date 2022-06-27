@@ -12,4 +12,11 @@ export class MapsService {
     const mapsUrl = `http://localhost:5000/api/v1/lore-collection/${loreId}/maps/${mapId}`;
     return this.http.get(mapsUrl).pipe(map((data: any) => data.data));
   }
+  updateMap(mapId: string, data: any) {
+    const updateUrl = `http://localhost:5000/api/v1/maps/${mapId}`;
+    const body = {
+      mapData: data,
+    };
+    return this.http.put(updateUrl, body);
+  }
 }

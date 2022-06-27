@@ -114,7 +114,6 @@ export class DocumentPageComponent {
   addReference(refId: string, selection: any) {
     const loreId = this.router.url.split('/')[2];
     const referenceLink = `lore-collection/${loreId}/documents/${refId}`;
-    let editorContent = this.editor.quillEditor.getContents();
 
     this.editor.quillEditor.updateContents(
       new Delta()

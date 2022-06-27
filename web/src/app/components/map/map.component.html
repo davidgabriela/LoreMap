@@ -15,6 +15,8 @@
 <ng-template #userMenu>
   <mat-action-list class="context-menu">
     <button (click)="openDialog()" mat-list-item>Add pin</button>
-    <button *ngIf="isOnPin()" mat-list-item>Delete Pin</button>
+    <button *ngIf="isOnPin()" (click)="removePin(selectedPin)" mat-list-item>
+      Delete Pin
+    </button>
   </mat-action-list>
 </ng-template>

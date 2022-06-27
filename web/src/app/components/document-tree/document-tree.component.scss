@@ -13,8 +13,14 @@
   display: block;
 }
 
-.example-tree-node .mat-list-item {
-  font-size: 100%;
+#tree-parent, #leaf-node {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.mat-icon-button{
+  font-size: 16px;
 }
 
 .example-tree-node .example-tree-node {

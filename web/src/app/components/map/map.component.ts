@@ -1,5 +1,6 @@
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { Location } from '@angular/common';
 import {
   Component,
   Input,
@@ -13,6 +14,7 @@ import * as L from 'leaflet';
 import { imageOverlay, latLng, Marker, marker, Point } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { filter, fromEvent, Observable, Subscription, take } from 'rxjs';
+import { MapsService } from 'src/app/services/maps/maps.service';
 import { DialogBodyComponent } from '../dialog-body/dialog-body.component';
 
 @Component({
@@ -28,6 +30,8 @@ export class MapComponent implements OnInit {
   closeEventSub: Subscription | undefined;
   overlayRef: OverlayRef | null = null;
   mapRef: any = null;
+  clickedPin: boolean = false;
+  selectedPin: any = '';
 
   // Store the coordinates of the last right click
   lastClickedCoords: any = null;
@@ -45,7 +49,9 @@ export class MapComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     public overlay: Overlay,
-    public viewContainerRef: ViewContainerRef
+    public viewContainerRef: ViewContainerRef,
+    private mapsService: MapsService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -102,19 +108,36 @@ export class MapComponent implements OnInit {
       .bindPopup(caption);
 
     m.on('dragend', (e) => {
-      alert(`Moved to ${m.getLatLng().toString()}`);
       const new_coords = m.getLatLng();
       this.markers[this.markers.indexOf(m)].setLatLng(new_coords);
+      this.mapsService.updateMap(mapId, this.markers);
     });
 
-    this.markers.push(m);
-    console.log('Markers on map:', this.markers);
+    m.on('contextmenu', (e) => {
+      this.clickedPin = true;
+      this.selectedPin = m;
+    });
+
+    this.markers = [...this.markers, m];
+
+    const mapId = this.location.path().split('/')[2];
+    this.mapsService.updateMap(mapId, this.markers);
     this.close();
+  }
+
+  removePin(m: any) {
+    this.mapRef.removeLayer(m);
+    this.clickedPin = false;
+    this.selectedPin = '';
+
+    this.markers = this.markers.filter((item: Marker) => item !== m);
+    const mapId = this.location.path().split('/')[2];
+    this.mapsService.updateMap(mapId, this.markers);
   }
 
   public isOnPin(): boolean {
     // TODO: implement logic to check if user clicked on a pin
-    return false;
+    return this.clickedPin;
   }
 
   // Opens the context menu
