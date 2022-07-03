@@ -76,9 +76,7 @@ export class MainTextPageComponent {
 
     this.loreCollectionService
       .updateLore(loreId, JSON.stringify(change))
-      .subscribe((respone) => {
-        console.log('UPDATED MAIN');
-      });
+      .subscribe(() => {});
   }
 
   getSelection() {

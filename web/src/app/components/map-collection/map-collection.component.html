@@ -1,0 +1,28 @@
+<div class="add-map">
+  <h1 typography>Add a new map</h1>
+  <button mat-icon-button color="primary" routerLink="/map-upload">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+<div>
+  <div class="card-container">
+    <ng-container *ngIf="mapCollection | async as mapData; else spinner">
+      <mat-card *ngFor="let map of mapData" class="map-card">
+        <mat-card-title>{{ map.name }}</mat-card-title>
+        <mat-card-actions>
+          <a mat-button color="primary" [routerLink]="[map._id, 'main']"
+            ><mat-icon>edit</mat-icon>EDIT</a
+          >
+          <a mat-button color="primary" (click)="removeMap(map._id)"
+            ><mat-icon>delete</mat-icon>DELETE</a
+          >
+        </mat-card-actions>
+      </mat-card>
+    </ng-container>
+    <ng-template #spinner>
+      <div class="spinner-container">
+        <mat-spinner diameter="30"></mat-spinner>
+      </div>
+    </ng-template>
+  </div>
+</div>

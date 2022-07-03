@@ -1,0 +1,28 @@
+.add-map {
+  padding: 50px 0 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.card-container {
+  margin: 20px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.map-card {
+  width: 60vw;
+}
+
+.spinner-container {
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}

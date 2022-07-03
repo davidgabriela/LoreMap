@@ -15,6 +15,20 @@ export class NavigationComponent {
   fullUrl = '';
   loreId = '';
 
+  pageNames: Map<string, string> = new Map([
+    ['login', 'Login'],
+    ['register', 'Register'],
+    ['forgot-password', 'Forgot password'],
+    ['reset-password', 'Reset password'],
+    ['lore-collection', 'Lore collection'],
+    ['main', 'Main Page of { Lore title }'],
+    ['map-upload', 'Upload map'],
+    ['maps', '{ Map title }'],
+    ['timelines', 'Timelines'],
+    ['maps', '{ Map title }'],
+    ['', '[UNKNOWN]'],
+  ]);
+
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(
@@ -52,10 +66,13 @@ export class NavigationComponent {
         this.sectionName = 'Register';
         break;
       case 'forgot-password':
+        this.sectionName = 'Forgot password';
+        break;
+      case 'reset-password':
         this.sectionName = 'Reset password';
         break;
       case 'lore-collection':
-        this.sectionName = 'My collection';
+        this.sectionName = 'Lore collection';
         break;
       case 'map-upload':
         this.sectionName = 'Upload map';
