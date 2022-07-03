@@ -45,6 +45,8 @@ import { SelectComponent } from './components/select/select.component';
 import { TimelineCollectionComponent } from './components/timeline-collection/timeline-collection.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { AuthInterceptor } from './services/auth/auth-interceptor';
+import { RegisterComponent } from './components/auth/register/register.component';
+import { ForgotPasswordComponent } from './components/auth/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +67,8 @@ import { AuthInterceptor } from './services/auth/auth-interceptor';
     SelectComponent,
     TimelineComponent,
     TimelineCollectionComponent,
+    RegisterComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,

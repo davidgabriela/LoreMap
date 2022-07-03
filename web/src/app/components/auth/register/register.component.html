@@ -1,7 +1,17 @@
 <div class="container">
   <mat-card>
-    <mat-card-title>Log in</mat-card-title>
+    <mat-card-title>Register account</mat-card-title>
     <mat-card-content>
+      <mat-form-field appearance="fill">
+        <mat-label>Enter a username</mat-label>
+        <input
+          matInput
+          placeholder="Username"
+          [formControl]="username"
+          required
+          autocomplete="off"
+        />
+      </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Enter your email</mat-label>
         <input
@@ -14,7 +24,7 @@
         <mat-error *ngIf="email.invalid">{{ getErrorMessage() }}</mat-error>
       </mat-form-field>
       <mat-form-field appearance="fill">
-        <mat-label>Enter your password</mat-label>
+        <mat-label>Choose a password</mat-label>
         <input
           matInput
           autocomplete="off"
@@ -32,22 +42,19 @@
         </button>
       </mat-form-field>
       <div class="form-footer">
-        <a class="auth-link" routerLink="/forgot-password">Forgot password?</a>
         <button
           mat-raised-button
           color="primary"
           type="submit"
-          (click)="login(email.value, password.value)"
+          (click)="register(username.value, email.value, password.value)"
         >
-          Login
+          Register
         </button>
       </div>
       <mat-divider [inset]="true"></mat-divider>
       <div class="card-footer">
-        <mat-card-subtitle>Don't have an account?</mat-card-subtitle>
-        <button mat-raised-button routerLink="/register">
-          Create an account
-        </button>
+        <mat-card-subtitle>Already have an account?</mat-card-subtitle>
+        <button mat-raised-button routerLink="/login">Log in</button>
       </div>
     </mat-card-content>
   </mat-card>
