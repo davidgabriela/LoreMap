@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { CookieService } from "ngx-cookie-service";
+import { CookieService } from 'ngx-cookie-service';
 import { map, Observable, Subject } from 'rxjs';
 import { User } from 'src/app/models/User';
 
@@ -14,12 +14,44 @@ export class AuthService {
   private token: string = '';
   private authStatusListener = new Subject<boolean>();
 
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     private router: Router,
-    private cookieService: CookieService) {}
+    private cookieService: CookieService
+  ) {}
 
   getToken() {
     return this.token;
+  }
+
+  register(username: string, email: string, password: string) {
+    const credentials = {
+      username,
+      email,
+      password,
+    };
+    let header = new HttpHeaders().set('Content-type', 'application/json');
+    let options = {
+      headers: header,
+    };
+
+    return this.http
+      .post<{ token: string; expiresIn: Date }>(
+        this.authUrl + `/register`,
+        credentials,
+        options
+      )
+      .subscribe((response) => {
+        const token = response.token;
+        this.token = token;
+        if (token) {
+          const expirationDate = response.expiresIn;
+          this.authStatusListener.next(true);
+          this.isAuthenticated = true;
+          this.saveAuthData(token, expirationDate);
+          this.router.navigate(['/']);
+        }
+      });
   }
 
   login(email: string, password: string) {
@@ -64,14 +96,30 @@ export class AuthService {
   getCurrentUser(): Observable<User> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.getToken()}`,
+      Authorization: `Bearer ${this.getToken()}`,
     });
 
-    console.log(headers)
+    console.log(headers);
 
     return this.http
       .get(this.authUrl + `/me`, { headers: headers })
       .pipe(map((data: any) => data.data));
+  }
+
+  forgotPassword(email: string): Observable<any> {
+    const body = {
+      email,
+      host: 'localhost:4200',
+    };
+    return this.http.post(this.authUrl + `/forgotpassword`, body);
+  }
+
+  resetPassword(token: string, password: string): Observable<any> {
+    const body = {
+      token,
+      password,
+    };
+    return this.http.put(`${this.authUrl}/resetpassword/${token}`, body);
   }
 
   autoAuthUser() {
@@ -105,11 +153,11 @@ export class AuthService {
   }
 
   private saveAuthData(token: string, expirationDate: Date) {
-    this.cookieService.set('token', token)
+    this.cookieService.set('token', token);
     this.cookieService.set('expiration', expirationDate.toString());
   }
 
   private clearAuthData() {
-    this.cookieService.deleteAll()
+    this.cookieService.deleteAll();
   }
 }

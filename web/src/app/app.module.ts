@@ -47,6 +47,7 @@ import { TimelineComponent } from './components/timeline/timeline.component';
 import { AuthInterceptor } from './services/auth/auth-interceptor';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { ForgotPasswordComponent } from './components/auth/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { ForgotPasswordComponent } from './components/auth/forgot-password/forgo
     TimelineCollectionComponent,
     RegisterComponent,
     ForgotPasswordComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,

@@ -5,9 +5,10 @@ const jwt = require('jsonwebtoken')
 const { stringify } = require('querystring')
 
 const UserSchema = new mongoose.Schema({
-  name: {
+  username: {
     type: String,
-    required: [true, 'Name is required'],
+    unique: [true, 'Username already exists'],
+    required: [true, 'Username is required'],
   },
   email: {
     type: String,
@@ -15,19 +16,12 @@ const UserSchema = new mongoose.Schema({
     unique: [true, 'Email already registered'],
     match: [/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Entered email is invalid'],
   },
-  role: {
-    type: String,
-    enum: ['writer', 'reader'],
-    default: 'writer',
-  },
   password: {
     type: String,
     required: [true, 'Password is required'],
     minlength: 6,
     select: false,
   },
-  lastOutput: String,
-  lastOutput: String,
   resetPasswordToken: String,
   resetPasswordExpire: Date,
   createdAt: {

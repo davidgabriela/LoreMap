@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ForgotPasswordComponent } from './components/auth/forgot-password/forgot-password.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
+import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
 import { DocumentPageComponent } from './components/document-page/document-page.component';
 import { LoreCollectionComponent } from './components/lore-collection/lore-collection.component';
 import { MainTextPageComponent } from './components/main-text-page/main-text-page.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'reset-password/:token', component: ResetPasswordComponent },
 
   {
     path: 'lore-collection/:id/map-upload',

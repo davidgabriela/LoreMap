@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Subject } from 'rxjs';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
@@ -9,10 +10,16 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class ForgotPasswordComponent implements OnInit {
   constructor(private authService: AuthService) {}
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.foundEmail.next(null);
+    console.log(this.foundEmail);
+  }
 
   hide = true;
   email = new FormControl('', [Validators.required, Validators.email]);
+  foundEmail: Subject<any> = new Subject();
+  submittedEmail = false;
+  resetEmail = '';
 
   getErrorMessage() {
     if (this.email.hasError('required')) {
@@ -23,12 +30,20 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   sendResetEmail(email: string): void {
-    if (this.userExists(email)) console.log(`Send reset email to ${email}`);
-    else console.log(`There is no account with this email`);
-  }
-
-  userExists(email: string): boolean {
-    console.log(`Check if ${email} exists in DB`);
-    return true;
+    this.submittedEmail = true;
+    this.resetEmail = email;
+    this.foundEmail.next(null);
+    this.authService.forgotPassword(email).subscribe(
+      (result) => {
+        console.log('RESS:', result);
+        if (result.success) {
+          this.foundEmail.next(true);
+        }
+      },
+      (error) => {
+        this.foundEmail.next(false);
+      },
+      () => {}
+    );
   }
 }

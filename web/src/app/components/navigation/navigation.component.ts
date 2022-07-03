@@ -48,6 +48,12 @@ export class NavigationComponent {
       case 'login':
         this.sectionName = 'Login';
         break;
+      case 'register':
+        this.sectionName = 'Register';
+        break;
+      case 'forgot-password':
+        this.sectionName = 'Reset password';
+        break;
       case 'lore-collection':
         this.sectionName = 'My collection';
         break;
