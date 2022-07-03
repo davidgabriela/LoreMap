@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { FileUploadService } from 'src/app/services/file-upload/file-upload.service';
+import { MapsService } from 'src/app/services/maps/maps.service';
 
 @Component({
   selector: 'app-map-upload',
@@ -16,12 +16,9 @@ export class MapUploadComponent {
 
   previews: string[] = [];
   message: string[] = [];
-  imageInfos?: Observable<any>;
 
-  constructor(
-    private uploadService: FileUploadService,
-    private router: Router
-  ) {}
+  mapName = new FormControl('', [Validators.required]);
+  constructor(private mapsService: MapsService, private router: Router) {}
 
   ngOnInit() {
     console.log('LORE ID?? ', this.router.url);
@@ -48,30 +45,28 @@ export class MapUploadComponent {
     }
   }
 
-  upload(idx: number, file: File): void {
+  upload(name: String, file: File): void {
     if (file) {
       this.loreId = this.router.url.split('/')[2];
-      this.uploadService.upload(file, this.loreId).subscribe((res) => {
-        console.log(res.data._id);
-        this.mapId = res.data._id;
-        console.log('LORE ID & map id ', this.loreId, this.mapId);
-        this.router.navigate([
-          `lore-collection/${this.loreId}/maps/${this.mapId}`,
-        ]);
-        const msg = 'Uploaded the file successfully: ' + file.name;
-        this.message.push(msg);
-        this.imageInfos = this.uploadService.getFiles();
-      });
+      this.mapsService
+        .upload(file, this.loreId, this.mapName.value)
+        .subscribe((res) => {
+          console.log(res.data._id);
+          this.mapId = res.data._id;
+          this.router.navigate([
+            `lore-collection/${this.loreId}/maps/${this.mapId}`,
+          ]);
+          const msg = 'Uploaded the file successfully: ' + file.name;
+          this.message.push(msg);
+        });
     }
   }
 
-  uploadFiles(): void {
+  uploadFiles(name: string): void {
     this.message = [];
 
     if (this.selectedFiles) {
-      for (let i = 0; i < this.selectedFiles.length; i++) {
-        this.upload(i, this.selectedFiles[i]);
-      }
+      this.upload(name, this.selectedFiles[0]);
     }
   }
 }

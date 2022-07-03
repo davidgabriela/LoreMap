@@ -23,21 +23,23 @@ import { DialogBodyComponent } from '../dialog-body/dialog-body.component';
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit {
-  @Input() sourceImage: Observable<any> = new Observable();
-
+  @Input() mapData: Observable<any> = new Observable();
   @ViewChild('userMenu') userMenu: TemplateRef<any> | undefined;
 
   closeEventSub: Subscription | undefined;
   overlayRef: OverlayRef | null = null;
   mapRef: any = null;
   clickedPin: boolean = false;
-  selectedPin: any = '';
+  markerId = 0;
 
   // Store the coordinates of the last right click
   lastClickedCoords: any = null;
 
   // List of markers on map
-  markers: Marker[] = [];
+  old_marker: { [key: string]: any } = {};
+  markers: { [id: number]: Marker } = {};
+  markerData: { lat: number; lng: number; popup: any }[] = [];
+  selected_marker: { [key: string]: any } = {};
 
   options = {
     crs: L.CRS.Simple,
@@ -78,7 +80,7 @@ export class MapComponent implements OnInit {
   }
 
   public initMap(map: any): void {
-    this.sourceImage.subscribe((res) => {
+    this.mapData.subscribe((res) => {
       const imgUrl = `data:${res.imageFile['mimetype']};base64,${res.imageFile['data']}`;
       const imgBounds: L.LatLngBoundsExpression = [
         [0, 0],
@@ -92,6 +94,32 @@ export class MapComponent implements OnInit {
       map.on('contextmenu', (e: any) => {
         this.lastClickedCoords = e;
       });
+
+      this.markerData = res.mapData;
+      res.mapData.forEach((element: any) => {
+        let m = marker([element.lat, element.lng], {
+          autoPan: true,
+          autoPanPadding: new Point(100, 100),
+          draggable: true,
+          alt: 'new',
+        })
+          .addTo(map)
+          .bindPopup(element.popup);
+        this.markers[this.markerId++] = m;
+        m.on('dragstart', (e) => {
+          this.dragstartUpdate(m);
+        });
+
+        m.on('dragend', (e) => {
+          this.drangendUpdate(m);
+        });
+
+        m.on('contextmenu', (e) => {
+          this.contextUpdate(m);
+        });
+      });
+
+      console.log(res.mapData, this.markers);
 
       this.mapRef = map;
     });
@@ -107,32 +135,85 @@ export class MapComponent implements OnInit {
       .addTo(this.mapRef)
       .bindPopup(caption);
 
+    m.on('dragstart', (e) => {
+      this.dragstartUpdate(m);
+    });
+
     m.on('dragend', (e) => {
-      const new_coords = m.getLatLng();
-      this.markers[this.markers.indexOf(m)].setLatLng(new_coords);
-      this.mapsService.updateMap(mapId, this.markers);
+      this.drangendUpdate(m);
     });
 
     m.on('contextmenu', (e) => {
-      this.clickedPin = true;
-      this.selectedPin = m;
+      this.contextUpdate(m);
     });
 
-    this.markers = [...this.markers, m];
+    this.markers[this.markerId++] = m;
+    this.markerData = [
+      ...this.markerData,
+      {
+        lat: m.getLatLng().lat,
+        lng: m.getLatLng().lng,
+        popup: m.getPopup()?.getContent(),
+      },
+    ];
 
-    const mapId = this.location.path().split('/')[2];
-    this.mapsService.updateMap(mapId, this.markers);
+    const mapId = this.location.path().split('/')[4];
+    this.mapsService.updateMap(mapId, this.markerData).subscribe(() => {});
     this.close();
+  }
+
+  dragstartUpdate(m: Marker) {
+    const old_coords = m.getLatLng();
+    this.old_marker = {
+      lat: old_coords.lat,
+      lng: old_coords.lng,
+      popup: m.getPopup()?.getContent(),
+    };
+  }
+
+  drangendUpdate(m: Marker) {
+    const new_coords = m.getLatLng();
+    const new_marker = {
+      lat: new_coords.lat,
+      lng: new_coords.lng,
+      popup: m.getPopup()?.getContent(),
+    };
+    console.log('NEW', new_marker);
+    //this.markers[this.markers.indexOf(m)].setLatLng(new_coords);
+    const idx = this.markerData.findIndex(
+      (obj) => JSON.stringify(obj) === JSON.stringify(this.old_marker)
+    );
+    this.markerData[idx] = new_marker;
+    console.log(this.markerData);
+    const mapId = this.location.path().split('/')[4];
+    this.mapsService.updateMap(mapId, this.markerData).subscribe(() => {});
+  }
+  contextUpdate(m: Marker) {
+    console.log('right click');
+    this.clickedPin = true;
+    const selected_coords = m.getLatLng();
+    this.selected_marker = {
+      lat: selected_coords.lat,
+      lng: selected_coords.lng,
+      popup: m.getPopup()?.getContent(),
+    };
+    this.toRemove = m;
   }
 
   removePin(m: any) {
     this.mapRef.removeLayer(m);
     this.clickedPin = false;
-    this.selectedPin = '';
 
-    this.markers = this.markers.filter((item: Marker) => item !== m);
+    const idx = this.markerData.findIndex(
+      (obj) => JSON.stringify(obj) === JSON.stringify(this.selected_marker)
+    );
+    if (idx > -1) this.markerData.splice(idx, 1);
+    console.log(this.markerData);
+
+    this.selected_marker = {};
+    //this.markers = this.markers.filter(item => item !== m);
     const mapId = this.location.path().split('/')[2];
-    this.mapsService.updateMap(mapId, this.markers);
+    this.mapsService.updateMap(mapId, this.markerData);
   }
 
   public isOnPin(): boolean {

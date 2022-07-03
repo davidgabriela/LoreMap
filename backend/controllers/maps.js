@@ -42,16 +42,9 @@ exports.getMap = asyncHandler(async (req, res, next) => {
 // @route   POST /api/v1/maps
 // @access  Private
 exports.createMap = asyncHandler(async (req, res, next) => {
-  // Add owner
-  // req.body.owner = req.user.id;
-
-  // Add member
-  //req.body.members = req.user.email;
-
   if (!req.files) {
     return next(new ErrorResponse(`Please upload a file`, 400))
   }
-  console.log(req.files)
 
   const objId = mongoose.Types.ObjectId()
   req.files['_id'] = objId
@@ -84,8 +77,10 @@ exports.createMap = asyncHandler(async (req, res, next) => {
         console.error(err)
         return next(new ErrorResponse(`Problem with file upload`, 500))
       }
-
-      const map = await Map.create(req.files)
+      const map = await Map.create({
+        ...req.body,
+        imageFile: req.files.imageFile,
+      })
 
       res.status(201).json({ success: true, data: map })
     },
@@ -103,17 +98,6 @@ exports.updateMap = asyncHandler(async (req, res, next) => {
       new ErrorResponse(`Map not found with id ${req.params.id}`, 404),
     )
   }
-
-  // Check ownership
-  // if (map.owner.toString() !== req.user.id) {
-  //     return next(
-  //         new ErrorResponse(
-  //             `User ${req.params.id} not authorized to update map`,
-  //             401
-  //         )
-  //     );
-  // }
-
   map = await Map.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
@@ -133,16 +117,6 @@ exports.deleteMap = asyncHandler(async (req, res, next) => {
       new ErrorResponse(`Map not found with id ${req.params.id}`, 404),
     )
   }
-
-  // Check ownership
-  // if (map.owner.toString() !== req.user.id) {
-  //     return next(
-  //         new ErrorResponse(
-  //             `User ${req.params.id} not authorized to delete map`,
-  //             401
-  //         )
-  //     );
-  // }
 
   map.remove()
 

@@ -28,7 +28,10 @@ import { CardModule } from 'primeng/card';
 import { TimelineModule } from 'primeng/timeline';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ForgotPasswordComponent } from './components/auth/forgot-password/forgot-password.component';
 import { LoginComponent } from './components/auth/login/login.component';
+import { RegisterComponent } from './components/auth/register/register.component';
+import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
 import { ContextMenuComponent } from './components/context-menu/context-menu.component';
 import { DialogBodyComponent } from './components/dialog-body/dialog-body.component';
 import { DocumentExpoansionPanelComponent } from './components/document-expoansion-panel/document-expoansion-panel.component';
@@ -45,9 +48,7 @@ import { SelectComponent } from './components/select/select.component';
 import { TimelineCollectionComponent } from './components/timeline-collection/timeline-collection.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { AuthInterceptor } from './services/auth/auth-interceptor';
-import { RegisterComponent } from './components/auth/register/register.component';
-import { ForgotPasswordComponent } from './components/auth/forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
+import { MapCollectionComponent } from './components/map-collection/map-collection.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { ResetPasswordComponent } from './components/auth/reset-password/reset-p
     RegisterComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
+    MapCollectionComponent,
   ],
   imports: [
     BrowserModule,

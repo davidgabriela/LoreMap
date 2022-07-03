@@ -1,34 +1,38 @@
 <div class="photo-upload-container">
-  <mat-form-field>
-    <div>
-      <mat-toolbar>
+  <mat-card>
+    <mat-form-field class="map-name">
+      <input matInput placeholder="Enter Map Name" [formControl]="mapName" />
+    </mat-form-field>
+    <mat-form-field>
+      <div>
+        <mat-toolbar>
+          <input
+            matInput
+            placeholder="Select Image"
+            [value]="selectedFileNames.length ? selectedFileNames : ''"
+          />
+        </mat-toolbar>
         <input
-          matInput
-          [value]="
-            selectedFileNames.length ? selectedFileNames : 'Select Images'
-          "
+          class="hidden-input"
+          type="file"
+          id="fileInput"
+          name="fileInput"
+          accept="image/*"
+          multiple
+          (change)="selectFiles($event)"
         />
-        <button
-          mat-raised-button
-          color="primary"
-          [disabled]="!selectedFiles"
-          (click)="uploadFiles()"
-        >
-          Create a new map
-        </button>
-      </mat-toolbar>
-      <input
-        class="hidden-input"
-        type="file"
-        id="fileInput"
-        name="fileInput"
-        accept="image/*"
-        multiple
-        (change)="selectFiles($event)"
-      />
+      </div>
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!selectedFiles"
+      (click)="uploadFiles(mapName.value)"
+    >
+      Create a new map
+    </button>
+    <div>
+      <img *ngFor="let preview of previews" [src]="preview" class="preview" />
     </div>
-  </mat-form-field>
-  <div>
-    <img *ngFor="let preview of previews" [src]="preview" class="preview" />
-  </div>
+  </mat-card>
 </div>

@@ -1,6 +1,6 @@
 <div class="add-map">
   <h1 typography>Add a new map</h1>
-  <button mat-icon-button color="primary" routerLink="/map-upload">
+  <button mat-icon-button color="primary" routerLink="../map-upload">
     <mat-icon>add</mat-icon>
   </button>
 </div>
@@ -10,7 +10,7 @@
       <mat-card *ngFor="let map of mapData" class="map-card">
         <mat-card-title>{{ map.name }}</mat-card-title>
         <mat-card-actions>
-          <a mat-button color="primary" [routerLink]="[map._id, 'main']"
+          <a mat-button color="primary" [routerLink]="[map._id]"
             ><mat-icon>edit</mat-icon>EDIT</a
           >
           <a mat-button color="primary" (click)="removeMap(map._id)"

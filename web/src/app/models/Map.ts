@@ -1,6 +1,7 @@
 export interface Map {
   _id?: string;
+  name: string;
   imageFile: { [key: string]: any };
-  mapData: string;
+  mapData: object;
   lore: string;
 }

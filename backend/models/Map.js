@@ -1,13 +1,18 @@
 const mongoose = require('mongoose')
 
 const MapSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    default: 'New Map',
+  },
   imageFile: {
     type: Object,
     default: { data: '' },
   },
   mapData: {
-    type: String,
-    default: 'No map data',
+    type: Object,
+    default: {},
   },
   lore: {
     type: mongoose.Schema.ObjectId,

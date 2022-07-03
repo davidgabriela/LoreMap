@@ -14,7 +14,7 @@ export class MapPageComponent implements OnInit {
   public routeSub: Subscription = new Subscription();
   public mapId: string = '';
   public loreId: string = '';
-  public imageData: Observable<any> = new Observable();
+  public mapData: Observable<any> = new Observable();
 
   constructor(
     private mapsService: MapsService,
@@ -40,8 +40,7 @@ export class MapPageComponent implements OnInit {
   ngOnInit(): void {
     this.getMapId();
     console.log(this.mapId);
-    //this.imageData = `data:${res.imageFile['mimetype']};base64,${res.imageFile['data']}`;
-    this.imageData = this.mapsService.getMap(this.loreId, this.mapId);
+    this.mapData = this.mapsService.getMap(this.loreId, this.mapId);
   }
 
   ngOnDestroy() {

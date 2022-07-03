@@ -10,15 +10,6 @@ export class FileUploadService {
 
   constructor(private http: HttpClient) {}
 
-  /**
-   *
-   * let header = new HttpHeaders().set('Content-type', 'application/json');
-    let options = {
-      headers: header,
-    };
-    return this.http.post(this.loresUrl, lore, options);
-   */
-
   upload(file: File, loreId: string): Observable<any> {
     const formData: FormData = new FormData();
     formData.append('imageFile', file);
