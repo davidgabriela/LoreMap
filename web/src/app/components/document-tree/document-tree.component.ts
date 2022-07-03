@@ -1,5 +1,6 @@
 import { ArrayDataSource } from '@angular/cdk/collections';
 import { NestedTreeControl } from '@angular/cdk/tree';
+import { Location } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -21,11 +22,15 @@ export class DocumentTreeComponent implements OnInit {
 
   hasChild = (_: number, node: Folder) => !!node.children;
 
-  constructor(private foldersService: FoldersService, private router: Router) {}
+  constructor(
+    private foldersService: FoldersService,
+    private router: Router,
+    private location: Location
+  ) {}
 
   ngOnInit(): void {
-    const loreId = this.router.url.split('/')[2];
+    const loreId = this.location.path().split('/')[2];
     this.folders = this.foldersService.getFoldersFromLore(loreId);
-    this.folders.subscribe((res) => console.log(res));
+    this.folders.subscribe(() => {});
   }
 }

@@ -58,7 +58,7 @@ export class NavigationComponent {
   }
 
   setPageName(name: string): void {
-    this.sectionName = this.sectionNames.get(name) ?? 'empty';
+    this.sectionName = this.sectionNames.get(name) ?? '[UNKNOWN]';
   }
 
   logout() {
