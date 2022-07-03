@@ -15,7 +15,7 @@ export class NavigationComponent {
   fullUrl = '';
   loreId = '';
 
-  pageNames: Map<string, string> = new Map([
+  sectionNames: Map<string, string> = new Map([
     ['login', 'Login'],
     ['register', 'Register'],
     ['forgot-password', 'Forgot password'],
@@ -47,7 +47,7 @@ export class NavigationComponent {
       if (event instanceof NavigationEnd) {
         this.fullUrl = event.url;
         const params = event.url.split('/');
-        if (params[1] === 'lore-collection' && params.length > 2) {
+        if (params.length > 2) {
           this.setPageName(params[3]);
           this.loreId = params[2];
         } else {
@@ -57,42 +57,8 @@ export class NavigationComponent {
     });
   }
 
-  setPageName(name: String): void {
-    switch (name) {
-      case 'login':
-        this.sectionName = 'Login';
-        break;
-      case 'register':
-        this.sectionName = 'Register';
-        break;
-      case 'forgot-password':
-        this.sectionName = 'Forgot password';
-        break;
-      case 'reset-password':
-        this.sectionName = 'Reset password';
-        break;
-      case 'lore-collection':
-        this.sectionName = 'Lore collection';
-        break;
-      case 'map-upload':
-        this.sectionName = 'Upload map';
-        break;
-      case 'main':
-        this.sectionName = 'Main Page of { Lore title }';
-        break;
-      case 'maps':
-        this.sectionName = '{ Map title }';
-        break;
-      case 'documents':
-        this.sectionName = '{ Document title }';
-        break;
-      case 'timelines':
-        this.sectionName = 'Timelines';
-        break;
-      default:
-        this.sectionName = '[ UNKNOWN ]';
-        break;
-    }
+  setPageName(name: string): void {
+    this.sectionName = this.sectionNames.get(name) ?? 'empty';
   }
 
   logout() {

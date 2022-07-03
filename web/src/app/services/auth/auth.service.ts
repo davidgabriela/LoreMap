@@ -49,7 +49,7 @@ export class AuthService {
           this.authStatusListener.next(true);
           this.isAuthenticated = true;
           this.saveAuthData(token, expirationDate);
-          this.router.navigate(['/']);
+          this.router.navigate(['/lore-collection']);
         }
       });
   }
@@ -78,7 +78,7 @@ export class AuthService {
           this.authStatusListener.next(true);
           this.isAuthenticated = true;
           this.saveAuthData(token, expirationDate);
-          this.router.navigate(['/']);
+          this.router.navigate(['/lore-collection']);
         }
       });
   }
