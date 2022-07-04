@@ -33,4 +33,6 @@ export class DocumentTreeComponent implements OnInit {
     this.folders = this.foldersService.getFoldersFromLore(loreId);
     this.folders.subscribe(() => {});
   }
+
+  deleteDocument() {}
 }

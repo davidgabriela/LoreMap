@@ -40,6 +40,7 @@ export class MapComponent implements OnInit {
   markers: { [id: number]: Marker } = {};
   markerData: { lat: number; lng: number; popup: any }[] = [];
   selected_marker: { [key: string]: any } = {};
+  toRemove: Marker | null = null;
 
   options = {
     crs: L.CRS.Simple,
@@ -189,7 +190,6 @@ export class MapComponent implements OnInit {
     this.mapsService.updateMap(mapId, this.markerData).subscribe(() => {});
   }
   contextUpdate(m: Marker) {
-    console.log('right click');
     this.clickedPin = true;
     const selected_coords = m.getLatLng();
     this.selected_marker = {
@@ -197,11 +197,13 @@ export class MapComponent implements OnInit {
       lng: selected_coords.lng,
       popup: m.getPopup()?.getContent(),
     };
+    console.log(this.selected_marker);
     this.toRemove = m;
   }
 
   removePin(m: any) {
     this.mapRef.removeLayer(m);
+    this.toRemove = null;
     this.clickedPin = false;
 
     const idx = this.markerData.findIndex(
@@ -211,9 +213,8 @@ export class MapComponent implements OnInit {
     console.log(this.markerData);
 
     this.selected_marker = {};
-    //this.markers = this.markers.filter(item => item !== m);
-    const mapId = this.location.path().split('/')[2];
-    this.mapsService.updateMap(mapId, this.markerData);
+    const mapId = this.location.path().split('/')[4];
+    this.mapsService.updateMap(mapId, this.markerData).subscribe(() => {});
   }
 
   public isOnPin(): boolean {
