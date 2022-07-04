@@ -38,12 +38,10 @@ export class MapsService {
     const body = {
       mapData: data,
     };
-    console.log('UPDATEEEEE', updateUrl, body);
     return this.http.put(updateUrl, body);
   }
 
   upload(file: File, loreId: string, name: string): Observable<any> {
-    console.log('UPLOAD?', file, loreId);
     let formData: FormData = new FormData();
     formData.append('name', name);
     formData.append('imageFile', file);

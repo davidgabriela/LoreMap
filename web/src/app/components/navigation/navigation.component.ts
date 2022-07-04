@@ -23,10 +23,9 @@ export class NavigationComponent {
     ['lore-collection', 'Lore collection'],
     ['main', 'Main Page of { Lore title }'],
     ['map-upload', 'Upload map'],
-    ['maps', '{ Map title }'],
+    ['maps', ''],
     ['timelines', 'Timelines'],
-    ['maps', '{ Map title }'],
-    ['', '[UNKNOWN]'],
+    ['', ''],
   ]);
 
   isHandset$: Observable<boolean> = this.breakpointObserver
@@ -58,7 +57,7 @@ export class NavigationComponent {
   }
 
   setPageName(name: string): void {
-    this.sectionName = this.sectionNames.get(name) ?? '[UNKNOWN]';
+    this.sectionName = this.sectionNames.get(name) ?? '';
   }
 
   logout() {

@@ -37,12 +37,9 @@ export class DialogBodyComponent {
     this.formData.selection = newItem;
   }
 
-  getFormData() {
-    console.log('form data is: ', this.formData);
-  }
+  getFormData() {}
 
   ngOnInit() {
-    console.log(this.formData);
     this.dialogTitle = this.data.dialogTitle;
     this.dialogSubmit = this.data.dialogSubmit;
     if ('textAreaLabel' in this.data) {

@@ -12,11 +12,8 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   hide = true;
-  email = new FormControl('florian.222@gmail.com', [
-    Validators.required,
-    Validators.email,
-  ]);
-  password = new FormControl('123456', [Validators.required]);
+  email = new FormControl('', [Validators.required, Validators.email]);
+  password = new FormControl('', [Validators.required]);
 
   getErrorMessage() {
     if (this.email.hasError('required')) {

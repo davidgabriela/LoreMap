@@ -74,7 +74,6 @@ export class MapComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         const caption = result.name;
-        console.log('Caption is:  ', caption);
         this.addPinHere(caption);
       }
     });
@@ -97,31 +96,30 @@ export class MapComponent implements OnInit {
       });
 
       this.markerData = res.mapData;
-      res.mapData.forEach((element: any) => {
-        let m = marker([element.lat, element.lng], {
-          autoPan: true,
-          autoPanPadding: new Point(100, 100),
-          draggable: true,
-          alt: 'new',
-        })
-          .addTo(map)
-          .bindPopup(element.popup);
-        this.markers[this.markerId++] = m;
-        m.on('dragstart', (e) => {
-          this.dragstartUpdate(m);
+      if (res.mapData) {
+        res.mapData.forEach((element: any) => {
+          let m = marker([element.lat, element.lng], {
+            autoPan: true,
+            autoPanPadding: new Point(100, 100),
+            draggable: true,
+            alt: 'new',
+          })
+            .addTo(map)
+            .bindPopup(element.popup);
+          this.markers[this.markerId++] = m;
+          m.on('dragstart', (e) => {
+            this.dragstartUpdate(m);
+          });
+
+          m.on('dragend', (e) => {
+            this.drangendUpdate(m);
+          });
+
+          m.on('contextmenu', (e) => {
+            this.contextUpdate(m);
+          });
         });
-
-        m.on('dragend', (e) => {
-          this.drangendUpdate(m);
-        });
-
-        m.on('contextmenu', (e) => {
-          this.contextUpdate(m);
-        });
-      });
-
-      console.log(res.mapData, this.markers);
-
+      }
       this.mapRef = map;
     });
   }
@@ -179,13 +177,12 @@ export class MapComponent implements OnInit {
       lng: new_coords.lng,
       popup: m.getPopup()?.getContent(),
     };
-    console.log('NEW', new_marker);
+    console.log('NEW POSITION', new_marker);
     //this.markers[this.markers.indexOf(m)].setLatLng(new_coords);
     const idx = this.markerData.findIndex(
       (obj) => JSON.stringify(obj) === JSON.stringify(this.old_marker)
     );
     this.markerData[idx] = new_marker;
-    console.log(this.markerData);
     const mapId = this.location.path().split('/')[4];
     this.mapsService.updateMap(mapId, this.markerData).subscribe(() => {});
   }
@@ -197,7 +194,7 @@ export class MapComponent implements OnInit {
       lng: selected_coords.lng,
       popup: m.getPopup()?.getContent(),
     };
-    console.log(this.selected_marker);
+    console.log('SELECTED MARKER', this.selected_marker);
     this.toRemove = m;
   }
 
@@ -210,7 +207,6 @@ export class MapComponent implements OnInit {
       (obj) => JSON.stringify(obj) === JSON.stringify(this.selected_marker)
     );
     if (idx > -1) this.markerData.splice(idx, 1);
-    console.log(this.markerData);
 
     this.selected_marker = {};
     const mapId = this.location.path().split('/')[4];

@@ -75,10 +75,13 @@ export class DocumentPageComponent {
   contentChanged(obj: any) {
     const documentId = this.router.url.split('/')[4];
     let change = obj.content;
+    console.log('Content changed, updating content');
 
     this.documentsService
       .updateDocument(documentId, JSON.stringify(change))
-      .subscribe((res) => {});
+      .subscribe((res) => {
+        console.log(res);
+      });
   }
 
   getSelection() {

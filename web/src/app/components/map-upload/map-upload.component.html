@@ -1,7 +1,12 @@
 <div class="photo-upload-container">
   <mat-card>
     <mat-form-field class="map-name">
-      <input matInput placeholder="Enter Map Name" [formControl]="mapName" />
+      <input
+        matInput
+        placeholder="Enter Map Name"
+        [formControl]="mapName"
+        autocomplete="off"
+      />
     </mat-form-field>
     <mat-form-field>
       <div>
